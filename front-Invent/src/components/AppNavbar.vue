@@ -11,10 +11,30 @@
 
     <div class="navbar-center">
       <ul>
-        <li><a href="/PagePrincipale">Home</a></li>
-        <li><a href="/PageArchives">Archive</a></li>
-        <li><a href="/PageComptage">Comptage</a></li>
-        <li><a href="/PageAfficheInvent">Live Visualisation</a></li>
+        <li>
+          <a href="/PagePrincipale">
+            Home
+            <div class="nav-line"></div>
+          </a>
+        </li>
+        <li>
+          <a href="/PageArchives">
+            Archive
+            <div class="nav-line"></div>
+          </a>
+        </li>
+        <li>
+          <a href="/PageComptage">
+            Comptage
+            <div class="nav-line"></div>
+          </a>
+        </li>
+        <li>
+          <a href="/PageAfficheInvent">
+            Live Visualisation
+            <div class="nav-line"></div>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="navbar-right">
@@ -26,23 +46,9 @@
   </nav>
 </template>
 
-<script>
-import router from "@/router";
-
-export default {
-  name: "AppNavbar",
-  methods: {
-    logout() {
-      localStorage.removeItem("token");
-      router.push("/");
-    },
-  },
-};
-</script>
-
 <style scoped>
 .navbar {
-  background-color: #2e3d52; 
+  background-color: #2e3d52;
   padding-top: 8px;
   padding-bottom: 8px;
   display: flex;
@@ -86,10 +92,9 @@ export default {
 
 .navbar-center a {
   text-decoration: none;
-  color: #fff; 
+  color: #fff;
   font-weight: bold;
   padding: 10px;
-  transition: color 0.3s ease;
   position: relative;
 }
 
@@ -97,20 +102,19 @@ export default {
   color: #ff8d6a;
 }
 
-.navbar-center a::after {
-  content: "";
+.nav-line {
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
   height: 2px;
   background-color: #ff8d6a;
   transform: scaleX(0);
-  transition: transform s ease;
+  transition: transform 0.3s ease;
 }
 
-.navbar-center a:hover::after {
-  transform: scaleX(0.5); 
+.navbar-center a:hover .nav-line {
+  transform: scaleX(1);
 }
 
 .navbar-right {
@@ -137,7 +141,7 @@ export default {
   width: 20px;
   height: 20px;
   margin-left: 5px;
-  filter: invert(100%) brightness(100%); 
+  filter: invert(100%) brightness(100%);
 }
 
 .logoutWord {
@@ -152,5 +156,8 @@ export default {
     transform: scale(1.2);
   }
 
+  100% {
+    transform: scale(1.0);
+  }
 }
 </style>
