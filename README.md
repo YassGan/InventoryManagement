@@ -19,6 +19,8 @@ This is an inventory program built using the MEVN (MongoDB, Express.js, Vue.js, 
 
 - **User Authentication:** To access the application, users must be authenticated using JSON Web Tokens (JWT). This ensures secure access to their designated space within the application.
 
+- - **User Verification:** After the inscription the user should verify his new account, a verification link is sent to him in a email and he should click this link.
+
 ## Technologies Used
 
 - MongoDB: A NoSQL database used to store inventory data.
@@ -30,6 +32,8 @@ This is an inventory program built using the MEVN (MongoDB, Express.js, Vue.js, 
 - Node.js: A JavaScript runtime environment used to execute server-side JavaScript code.
 
 - JSON Web Tokens (JWT): A standard for securely transmitting authentication data as a JSON object.
+
+- Node mailer: For emails sendings.
 
 ## Live Demo
 To showcase the application's features, a video demonstration is included below. Hosting a website can be costly, but this video offers an efficient and cost-effective way to explore its functionalities.
