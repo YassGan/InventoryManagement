@@ -38,5 +38,5 @@ This is an inventory program built using the MEVN (MongoDB, Express.js, Vue.js, 
 - Node mailer: For emails sendings.
 
 ## Live Demo
-To showcase the application's features, a video demonstration is included below. Hosting a website can be costly, but this video offers an efficient and cost-effective way to explore its functionalities.
+To showcase the application's features, a video demonstration is included below. Hosting a website can be costly, but this video offers an efficient and cost-effective way to explore its functionalities. (https://www.youtube.com/watch?v=funfv0grAAQ&ab_channel=YassineAwesomeVideos)
 
