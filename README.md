@@ -3,6 +3,9 @@
 
 This is an inventory program built using the MEVN (MongoDB, Express.js, Vue.js, Node.js) technology stack. The program allows users to manage product data and perform accounting tasks based on CSV files. Users can visualize the content of a CSV file, perform accounting verification, fix incorrect data, and create new inventory elements. The program also supports user authentication using JSON Web Tokens (JWT).
 
+# Project link on web : https://inventory.4help.tn/
+
+
 ## Features
 
 - **CSV File Visualization:** Users can view the content of a CSV file, which primarily contains product data and related information.
