@@ -100,6 +100,7 @@
                 </select>
               </div>
             </div>
+            <div style="color:red" v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
 
             <div class="form-group">
               <button type="submit" class="button blue">Submit</button>
@@ -139,6 +140,8 @@ export default {
 
       dateInsertion_DB: "",
       tabPackage: [],
+            errorMessage: "", 
+
     };
   },
   computer: {
@@ -238,9 +241,11 @@ export default {
         this.passwordSocieteAdmin = "";
         this.emailSocieteAdmin = "";
         this.nomSocieteAdmin = "";
+        this.errorMessage="";
       } catch (error) {
         if (error.response) {
           this.errorMessage = error.response.data.error;
+
         } else if (error.request) {
           console.log(error.request);
         } else {

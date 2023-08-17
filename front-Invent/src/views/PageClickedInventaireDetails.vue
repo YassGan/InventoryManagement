@@ -162,34 +162,37 @@ export default {
   },
 
   methods: {
-    exportToSCV() {
-      const table = document.querySelector("#myTable");
+exportToSCV() {
+  const table = document.querySelector("#myTable");
+  const rows = [];
 
-      const rows = [];
+  for (const row of table.rows) {
+    const rowData = [];
 
-      for (const row of table.rows) {
-        const rowData = [];
-
-        for (const cell of row.cells) {
-          rowData.push(cell.textContent);
-        }
-
-        rows.push(rowData.join(";"));
+    for (const cell of row.cells) {
+      if (cell.querySelector('input')) {
+        rowData.push(cell.querySelector('input').value); // Get value from input field if exists
+      } else {
+        rowData.push(cell.textContent);
       }
+    }
 
-      const csvContent = rows.join("\n");
+    rows.push(rowData.join(";"));
+  }
 
-      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const csvContent = rows.join("\n");
 
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
 
-      link.download = "table.csv";
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
 
-      link.click();
+  link.download = "table.csv";
 
-      URL.revokeObjectURL(link.href);
-    },
+  link.click();
+
+  URL.revokeObjectURL(link.href);
+},
 
     exportToPDF() {
       const element = this.$refs.myElement;

@@ -1,11 +1,9 @@
 <template>
   <div class="AppInvContainer">
     <div class="AppInv">
-
       <div class="image-container">
         <img src="../assets/loginImage.jpg" alt="Login Image" class="login-image" />
       </div>
-
       <div class="form-container">
         <div class="title-container">
           <h1 class="PageTitle">Gestion d'inventaires</h1>
@@ -30,15 +28,22 @@
               />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
-            <div class="InscriptionLink"> <a href="/InscriptionPage"> S'inscrire ? </a></div>
+            <div class="InscriptionLink">
+              <a href="/InscriptionPage">S'inscrire ?</a>
+            </div>
             <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
           </form>
         </div>
       </div>
-
     </div>
   </div>
 </template>
+
+
+
+
+
+
 
 <script>
 import { HTTP } from "/axios";
@@ -136,6 +141,48 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+@media screen and (max-width: 900px) {
+  .AppInv {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .image-container {
+    display: none !important; /* Important rule to override any conflicting styles */
+  }
+
+  .form-container {
+    width: 95% !important;
+    padding: 20px ;
+    height: auto;
+  }
+
+  .PageTitle {
+    margin-top: 30px;
+  }
+  
+  .form-control {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+  
+  .error-message {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
 .form-wrapper {
   display: flex;
   justify-content: center;

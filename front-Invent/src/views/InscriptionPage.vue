@@ -123,13 +123,17 @@
                 </div>
               </div>
             </div>
+
           </div>
+                      <div style="margin-bottom:50px" v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+
 
           <div class="form-group">
             <button type="submit" class="button blue">Submit</button>
           </div>
         </form>
       </div>
+
     </div>
   </div>
 </template>
@@ -153,6 +157,8 @@ export default {
       showpacks: true,
       selectedpack: null,
       packs: [],
+            errorMessage: "", 
+
     };
   },
   computer: {
@@ -247,6 +253,12 @@ export default {
 </script>
 
 <style scoped>
+.error-message {
+  color: #f44336;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 14px;
+}
 .packs-container {
   display: flex;
   justify-content: space-between;
