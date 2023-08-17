@@ -3,6 +3,8 @@
 <AppNavbar> </AppNavbar>
   <div class="accueil">
     <h1>Bienvenue sur votre site web</h1>
+          <!-- <button @click="alertingLoggedInUserInfos"> Click me to dispaly user logged in info  </button> -->
+
     <div class="fonctionnalites">
       <div class="fonctionnalite">
         <h2>Visualisation de fichiers CSV</h2>
@@ -97,6 +99,10 @@ export default ({
 
 
   methods:{
+    alertingLoggedInUserInfos(){
+        console.log("Logged in user infos are : email: "+localStorage.getItem('email')+' and the socId is '+localStorage.getItem("socId"))
+        
+    },
     downloadCSV() {
       const filePath = require('@/assets/data.csv');
       const downloadLink = document.createElement('a');

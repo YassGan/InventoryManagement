@@ -30,6 +30,7 @@
               />
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <div class="InscriptionLink"> <a href="/InscriptionPage"> S'inscrire ? </a></div>
             <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
           </form>
         </div>
@@ -38,6 +39,101 @@
     </div>
   </div>
 </template>
+
+<script>
+import { HTTP } from "/axios";
+import router from "@/router";
+
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      errorMessage: "",
+    };
+  },
+    mounted() {
+        document.title = 'Gestion d\'inventaires | Login';
+
+  },
+  methods: {
+
+
+
+
+    async login() {
+      try {
+        const response = await HTTP.post("SocieteAdminAPI/loginAdmin", {
+          email: this.email,
+          password: this.password,
+        });
+        const token = response.data.token;
+
+
+
+
+          const userResponse = await HTTP.get(`SocieteAdminAPI/getAdmin/${this.email}`);
+          const userWasFoundData = userResponse.data;
+
+          const societeSearch = await HTTP.get(`SocietesAPI/getSociete/${userWasFoundData.idSociete}`);
+          const AdminSocieteData= societeSearch.data;
+
+          const packageSearch = await HTTP.get(`PackageAPI/getPackage/${AdminSocieteData.idPackage}`);
+          const SocietePackageData= packageSearch.data;
+
+
+          console.log("User logged in info----")
+          localStorage.setItem('User_loggedin_info', JSON.stringify(userWasFoundData));
+          console.log(localStorage.getItem('User_loggedin_info'))
+          //console.log(userWasFoundData)
+
+
+          console.log("User logged in Societe info----")
+          localStorage.setItem('User_loggedin_societe_info', JSON.stringify(AdminSocieteData));
+          console.log(localStorage.getItem('User_loggedin_societe_info'))
+          // console.log(AdminSocieteData)
+
+
+          
+          console.log("User logged in Societe package info----")
+          localStorage.setItem('User_loggedin_societe_package_info', JSON.stringify(SocietePackageData));
+          console.log(localStorage.getItem('User_loggedin_societe_package_info'))
+          // console.log(SocietePackageData)
+
+
+    
+        localStorage.setItem("token", token);
+        localStorage.setItem("email", this.email);
+        localStorage.setItem("socId", userWasFoundData._id);
+
+
+      try {
+        // ...
+        await router.push("/AfterLoginAdminPage");
+      } catch (error) {
+        // ...
+      }
+
+
+
+
+      } catch (error) {
+        if (error.response) {
+          this.errorMessage = error.response.data.error;
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
+      }
+    },
+
+
+
+
+  },
+};
+</script>
 
 <style scoped>
 .form-wrapper {
@@ -139,46 +235,25 @@
   height: 100%;
   border-radius: 10px;
 }
+
+.InscriptionLink{
+  margin-top:10px;
+}
+
+
+.InscriptionLink a {
+  color: #e74311;
+  text-decoration: none;
+}
+
+.InscriptionLink a:hover {
+ text-decoration: underline; 
+}
+
+
+
+
 </style>
 
-<script>
-import { HTTP } from "/axios";
-import router from "@/router";
 
-export default {
-  data() {
-    return {
-      email: "",
-      password: "",
-      errorMessage: "",
-    };
-  },
-    mounted() {
-        document.title = 'Gestion d\'inventaires | Login';
 
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await HTTP.post("authentRegis/login", {
-          email: this.email,
-          password: this.password,
-        });
-        const token = response.data.token;
-        localStorage.setItem("token", token);
-        localStorage.setItem("email", this.email);
-
-        router.push("/PagePrincipale");
-      } catch (error) {
-        if (error.response) {
-          this.errorMessage = error.response.data.error;
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-      }
-    },
-  },
-};
-</script>

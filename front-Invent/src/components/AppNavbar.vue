@@ -1,6 +1,9 @@
+
+
+
 <template>
   <nav class="navbar">
-    <a href="/PagePrincipale">
+    <a href="/AfterLoginAdminPage">
       <div class="logo-container">
         <div>
           <img src="../assets/WebsiteLogo.png" alt="Logo" class="logo" />
@@ -17,21 +20,67 @@
             <div class="nav-line"></div>
           </a>
         </li>
+        <!-- Spécifique pour l'utilisateur Admin produit -->
+
         <li>
-          <a href="/PageArchives">
-            Archive
+          <a
+            v-if="this.UserRole == 'admin_produit'"
+            href="/PageListeInventairesArchives"
+          >
+            Inventaires Archivés
             <div class="nav-line"></div>
           </a>
         </li>
+
         <li>
-          <a href="/PageComptage">
-            Comptage
+          <a
+            v-if="this.UserRole == 'admin_produit'"
+            href="/PageListeInventairesPasVerifies"
+          >
+            Inventaires Importés
             <div class="nav-line"></div>
           </a>
         </li>
+
+        <li v-if="this.UserRole == 'admin_produit'">
+          <a href="/PageCreationNvArticles">
+            New Produits
+            <div class="nav-line"></div>
+          </a>
+        </li>
+        <!-- Spécifique pour l'utilisateur Admin produit -->
+
+        <!-- Spécifique pour l'utilisateur Admin immo -->
+
+        <li v-if="this.UserRole == 'admin_immo'">
+          <a href="/PageListeInventairesImmobiliersArchives">
+            Inventaires Immobiliers Archivés
+            <div class="nav-line"></div>
+          </a>
+        </li>
+
         <li>
-          <a href="/PageAfficheInvent">
-            Live Visualisation
+          <a
+            v-if="this.UserRole == 'admin_immo'"
+            href="/PageListeInventairesImmobiliersPasVerifies"
+          >
+            Inventaires Immobiliers Importés
+            <div class="nav-line"></div>
+          </a>
+        </li>
+
+        <li v-if="this.UserRole == 'admin_immo'">
+          <a href="/PageCreationNvArticlesImmobiliers">
+            New Articles Immobiliers
+            <div class="nav-line"></div>
+          </a>
+        </li>
+
+        <!-- Spécifique pour l'utilisateur Admin immo -->
+
+        <li>
+          <a href="/PageCreationNvUtilisateur">
+            New User
             <div class="nav-line"></div>
           </a>
         </li>
@@ -46,9 +95,54 @@
   </nav>
 </template>
 
+
+<script>
+import router from "@/router";
+
+export default {
+  data() {
+    return {
+      UserRole: "",
+    };
+  },
+  mounted() {
+    this.navbarElementsDynamic();
+  },
+  methods: {
+    logout() {
+      router.push("/loginPage");
+    },
+    navbarElementsDynamic() {
+      const User_loggedin_info_String =
+        localStorage.getItem("User_loggedin_info");
+      const User_loggedin_info_Object = JSON.parse(User_loggedin_info_String);
+
+      console.log("    navbar  console.log(User_loggedin_info_Object);");
+      console.log(User_loggedin_info_Object.role);
+      this.UserRole = localStorage.getItem("OptionAdmin");
+    },
+  },
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style scoped>
 .navbar {
-  background-color: #2e3d52;
+    background-color: #e74311;
+
+  /* background-color: #2e3d52; */
   padding-top: 8px;
   padding-bottom: 8px;
   display: flex;
@@ -65,7 +159,7 @@
   width: 40px;
   height: 40px;
   margin-right: 10px;
-  filter: invert(100%) brightness(100%); /* Change the logo color to white */
+  filter: invert(100%) brightness(100%); 
 }
 
 .logo-text {
@@ -157,7 +251,19 @@
   }
 
   100% {
-    transform: scale(1.0);
+    transform: scale(1);
   }
 }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+

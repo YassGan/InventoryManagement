@@ -1,0 +1,151 @@
+<template>
+
+
+  <div class="PageContainer">
+     <div class="navbar-right">
+      <button class="logout-button" @click="logout">
+        <div class="logoutWord">Logout</div>
+      </button>
+    </div>
+    <div class="buttonsTitleContainer">
+    <h1 class="title">Bonjour Super Admin</h1>
+
+
+    <div class="button-container">
+      <button @click="pageSocieteRedirection" class="button blue">Sociétés</button>
+      <button @click="pagePackageRedirection" class="button green">Packages</button>
+    </div>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import router from "@/router";
+export default {
+
+  methods:{
+      logout(){
+      router.push("/SuperAdminLoginPage")
+    },
+    pageSocieteRedirection(){
+            router.push("PageSuperAdmin_Societes")
+    },
+    pagePackageRedirection(){
+            router.push("PageSuperAdmin_Packages")
+    },
+    pageSocietesAdminRedirection(){
+            router.push("PageSuperAdmin_SocietesAdmins")
+    }
+
+  }
+}
+</script>
+
+<style scoped >
+
+
+.navbar-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 20px;
+    padding-top: 20px;
+
+}
+
+.navbar-right:hover{
+  padding-right: 30px;
+transition: 500ms;    
+    }
+
+
+.buttonsTitleContainer{
+  margin-top: -100px;
+}
+.PageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e0e6ed;
+    height: 100vh;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
+}
+
+
+.green {
+  background-color: #4bc04b;
+}
+
+.green:hover {
+  background-color: #306530;
+
+}
+
+
+.blue {
+  background-color: #197484;
+}
+
+.blue:hover {
+  background-color: #15535e;
+}
+
+
+.yellow {
+  background-color: #c7bb35;
+}
+
+.yellow:hover {
+  background-color: #8a8229;
+}
+
+
+
+.logout-button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout-button:hover {
+  animation: attention 1s infinite alternate;
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.logoutWord {
+  padding-right: 3px;
+}
+
+</style>

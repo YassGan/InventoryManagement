@@ -12,29 +12,41 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
- 
+
+const NewCSV_Work = require('./routes/NewCSV_Work.js');
+app.use('/api/NewCSV_Work', NewCSV_Work);
 
 
-app.use(express.static(path.join(__dirname , 'front-Invent/dist')))
+const ArticlesAPI = require('./routes/ArticlesAPI.js');
+app.use('/api/ArticlesAPI', ArticlesAPI);
+
+const UtilisateursAPI = require('./routes/UtilisateursAPI.js');
+app.use('/api/UtilisateursAPI', UtilisateursAPI);
+
+const Inventaires_ArchivesAPI = require('./routes/Inventaires_ArchivesAPI.js');
+app.use('/api/Inventaires_ArchivesAPI', Inventaires_ArchivesAPI);
+
+const Inventaires_non_verifiesAPI = require('./routes/Inventaires_non_verifiesAPI.js');
+app.use('/api/Inventaires_non_verifiesAPI', Inventaires_non_verifiesAPI);
+
+const SocietesAPI = require('./routes/SocietesAPI.js');
+app.use('/api/SocietesAPI', SocietesAPI);
+
+const PackageAPI = require('./routes/PackageAPI.js');
+app.use('/api/PackageAPI', PackageAPI);
+
+const SocieteAdminAPI = require('./routes/SocieteAdminAPI.js');
+app.use('/api/SocieteAdminAPI', SocieteAdminAPI);
+
+const Societe_et_AdminAPI = require('./routes/Societe_et_AdminAPI.js');
+app.use('/api/Societe_et_AdminAPI', Societe_et_AdminAPI);
+
+const ArticlesImmobiliersAPI = require('./routes/ArticlesImmobiliersAPI.js');
+app.use('/api/ArticlesImmobiliersAPI', ArticlesImmobiliersAPI);
 
 
-
-const authentRegis = require('./routes/authentRegis.js');
-app.use('/api/authentRegis', authentRegis);
-
-
-const Inventaires = require('./routes/Inventaires.js');
-app.use('/api/Inventaires', Inventaires);
-
-const CSVwork = require('./routes/CSVwork.js');
-app.use('/api/CSVwork', CSVwork);
-
-
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+ '/front-Invent/dist/index.html'));
-});
-
+const InventairesImmobiliersAPI = require('./routes/InventairesImmobiliersAPI.js');
+app.use('/api/InventairesImmobiliersAPI', InventairesImmobiliersAPI);
 
 
 
@@ -58,101 +70,9 @@ app.get('*', (req, res) => {
 
 
 // Déclencheur du serveur backend
-app.listen(8001, () => {
-  console.log("Le serveur écoute sur le port 8001");
+const PORT=8000
+app.listen(PORT, () => {
+  console.log("Le serveur écoute sur le port "+PORT);
 });
 // !!Déclencheur du serveur backend
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//!! code that was created and it was changed or it reveals that it's no longer necessary
-    // post request to add a new article to the database
-      app.post('/CreateNewArticle', async (req, res) => {
-        const {
-          Article,
-          Designation,
-          Lot,
-          DateFabrication,
-          Date_Premption,
-          Emplacements,
-          Nom_Emplacement,
-          Quantite1,
-          Quantite2,
-          Quantite3,
-          IdInventaireAttaché,
-          DateInsertion_DB
-        } = req.body;
-        try {
-          const article = new ArticleEnt({
-            Article,
-            Designation,
-            Lot,
-            DateFabrication,
-            Date_Premption,
-            Emplacements,
-            Nom_Emplacement,
-            Quantite1,
-            Quantite2,
-            Quantite3,
-            IdInventaireAttaché,
-            DateInsertion_DB
-          });
-          await article.save();
-          console.log('Data inserted successfully:', article);
-
-          res.status(200).json({ message: 'Data inserted successfully' });
-        } catch (error) {
-          console.error('Error inserting data:', error);
-          res.status(500).json({ error: 'Server error' });
-        }
-      });
-
-    // post request to create a new inventory element (with the sql logic )
-      app.post('/addInventory', async (req, res) => {
-        const { DateInsertion_DB, NomInventaire,Id_Attachement_DB } = req.body;
-        try {
-          const Inventory = new InventoryEnt({ DateInsertion_DB, NomInventaire,Id_Attachement_DB });
-          await Inventory.save();
-          console.log('Inventory element  inserted successfully:', Inventory);
-
-          res.status(200).json({ message: 'Inventory element  inserted successfully' });
-        } catch (error) {
-          console.error('Error inserting data:', error);
-          res.status(500).json({ error: 'Server error' });
-        }
-      });
-  // !!post request to create a new inventory element (with the sql logic )
-
-
-
-
 
