@@ -217,6 +217,17 @@ const routes = [
   },
 
 
+  {
+    path: '/PageListeUsers/',
+    name: 'PageListeUsers',
+    component: () => import("@/views/PageListeUsers.vue"),
+  },
+
+  {
+    path: '/PageUpdateUser/:email',
+    name: 'PageUpdateUser',
+    component: () => import("@/views/PageUpdateUser.vue"),
+  },
 
 
 

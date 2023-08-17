@@ -177,6 +177,83 @@ router.get('/getUsersBySocieteId/:societeId', async (req, res) => {
   }
 });
 
+// API to get all users with a specific societeId
+router.get('/getAllUsersBySocieteId/:societeId', async (req, res) => {
+  try {
+    const societeId = req.params.societeId;
+
+    const users = await User.find({ societeId });
+
+    if (users.length === 0) {
+      return res.status(404).json({ error: 'No users found for the provided societeId' });
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
+// API to delete a user by email
+router.delete('/deleteUser/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    // Find and delete the user by email
+    const deletedUser = await User.findOneAndDelete({ email });
+
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// ...
+
+
+
+// API to update a user by email
+router.put('/updateUser/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+    const { nom, password } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update user information
+    user.nom = nom || user.nom;
+    user.password = password || user.password;
+    
+
+    // Save the updated user
+    await user.save();
+
+    res.status(200).json({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
 
 
 module.exports = router;

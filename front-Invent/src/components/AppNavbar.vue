@@ -79,8 +79,8 @@
         <!-- Spécifique pour l'utilisateur Admin immo -->
 
         <li>
-          <a href="/PageCreationNvUtilisateur">
-            New User
+          <a href="/PageListeUsers">
+            Users
             <div class="nav-line"></div>
           </a>
         </li>
