@@ -119,6 +119,7 @@ export default {
       maxInventaires: 0,
       nombreInventairesArchivés: 0,
       nombreInventairePasEncoreValidés: 0,
+      testMaxInv:false
     };
   },
   computed: {
@@ -196,6 +197,18 @@ export default {
       return result;
     },
     async ajouter_Articles_DB() {
+      // alert(this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés))
+      if(  this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés)<=0){
+                Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Vous avez atteint le nombre maximal d'inventaires de votre pack",
+        });
+        this.testMaxInv=true;
+      }
+
+      if(this.testMaxInv==false){
+
       console.table(this.importedData);
       const randomString = this.generateRandomString(10);
 
@@ -266,6 +279,7 @@ export default {
         console.log(response.data);
       } catch (error) {
         console.error("Error adding article:", error);
+      }
       }
     },
     openFileInput() {

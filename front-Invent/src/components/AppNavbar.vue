@@ -110,6 +110,8 @@ export default {
   },
   methods: {
     logout() {
+          localStorage.removeItem('token');
+
       router.push("/loginPage");
     },
     navbarElementsDynamic() {

@@ -34,6 +34,8 @@ const routes = [
     path: '/SuperAdminLoginPage',
     name: 'SuperAdminLoginPage',
     component: () => import("@/views/SuperAdmin/SuperAdminLoginPage.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -41,6 +43,8 @@ const routes = [
     path: '/AfterLoginAdminPage',
     name: 'AfterLoginAdminPage',
     component: () => import("@/views/AfterLoginAdminPage.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -48,12 +52,16 @@ const routes = [
     path: '/PageListeInventairesPasVerifies',
     name: 'PageListeInventairesPasVerifies',
     component: () => import("@/views/PageListeInventairesPasVerifies.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   {
     path: '/PageListeInventairesArchives',
     name: 'PageListeInventairesArchives',
     component: () => import("@/views/PageListeInventairesArchives.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   
@@ -61,6 +69,8 @@ const routes = [
     path: '/InscriptionPage',
     name: 'InscriptionPage',
     component: () => import("@/views/InscriptionPage.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   
@@ -68,6 +78,8 @@ const routes = [
     path: '/PageCreationNvArticlesImmobiliers',
     name: 'InscriptPageCreationNvArticlesImmobiliersionPage',
     component: () => import("@/views/PartieArticlesImmobiliers/PageCreationNvArticlesImmobiliers.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -76,6 +88,8 @@ const routes = [
     path: '/PageListeInventairesImmobiliersPasVerifies',
     name: 'PageListeInventairesImmobiliersPasVerifies',
     component: () => import("@/views/PartieArticlesImmobiliers/PageListeInventairesImmobiliersPasVerifies.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -83,6 +97,8 @@ const routes = [
     path: '/PageListeInventairesImmobiliersArchives',
     name: 'PageListeInventairesImmobiliersArchives',
     component: () => import("@/views/PartieArticlesImmobiliers/PageListeInventairesImmobiliersArchives.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   
@@ -90,6 +106,8 @@ const routes = [
     path: '/PageClickedInventaireImmobilierDetails/:InventId',
     name: 'PageClickedInventaireImmobilierDetails',
     component: () => import("@/views/PartieArticlesImmobiliers/PageClickedInventaireImmobilierDetails.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   
@@ -108,6 +126,8 @@ const routes = [
     path: '/PageSuperAdmin_Societes',
     name: 'PageSuperAdmin_Societes',
     component: () => import("@/views/SuperAdmin/Societes/PageSuperAdmin_Societes.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -115,6 +135,8 @@ const routes = [
     path: '/PageAjout_Societe',
     name: 'PageAjout_Societe',
     component: () => import("@/views/SuperAdmin/Societes/PageAjout_Societe.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
   
@@ -123,6 +145,8 @@ const routes = [
     path: '/PageAjout_Package',
     name: 'PageAjout_Package',
     component: () => import("@/views/SuperAdmin/Packages/PageAjout_Package.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -131,6 +155,8 @@ const routes = [
     path: '/PageSuperAdmin_Packages',
     name: 'PageSuperAdmin_Packages',
     component: () => import("@/views/SuperAdmin/Packages/PageSuperAdmin_Packages.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -138,6 +164,8 @@ const routes = [
     path: '/PageSuperAdmin_SocietesAdmins',
     name: 'PageSuperAdmin_SocietesAdmins',
     component: () => import("@/views/SuperAdmin/SocietesAdmins/PageSuperAdmin_SocietesAdmins.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -145,6 +173,8 @@ const routes = [
     path: '/PageAjout_SocieteAdmin',
     name: 'PageAjout_SocieteAdmin',
     component: () => import("@/views/SuperAdmin/SocietesAdmins/PageAjout_SocieteAdmin.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -152,6 +182,8 @@ const routes = [
     path: '/PageValidationInventaireImmobilier/:InventId',
     name: 'PageValidationInventaireImmobilier',
     component: () => import("@/views/PartieArticlesImmobiliers/PageValidationInventaireImmobilier.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -201,12 +233,16 @@ const routes = [
     path: '/PageAfficheInvent',
     name: 'PageAfficheInvent',
     component: PageAfficheInvent,
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
   {
     path: '/PageArchiveInventaires',
     name: 'PageArchiveInventaires',
     component: PageArchiveInventaires,
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
 
   },
 
@@ -214,6 +250,8 @@ const routes = [
     path: '/PageValidationInventaire/:InventId',
     name: 'PageValidationInventaire',
     component: PageValidationInventaire,
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
@@ -221,12 +259,16 @@ const routes = [
     path: '/PageListeUsers/',
     name: 'PageListeUsers',
     component: () => import("@/views/PageListeUsers.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
   {
     path: '/PageUpdateUser/:email',
     name: 'PageUpdateUser',
     component: () => import("@/views/PageUpdateUser.vue"),
+    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
+
   },
 
 
