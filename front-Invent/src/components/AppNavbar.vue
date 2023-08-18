@@ -98,6 +98,7 @@
 
 <script>
 import router from "@/router";
+let sessionTimer; 
 
 export default {
   data() {
@@ -110,10 +111,21 @@ export default {
   },
   methods: {
     logout() {
+            clearTimeout(sessionTimer);
+
           localStorage.removeItem('token');
 
-      router.push("/loginPage");
-    },
+
+
+    // Check if the current route is not already the '/loginPage' route
+    if (this.$route.path !== '/loginPage') {
+      router.push('/loginPage');}
+
+
+
+
+
+},
     navbarElementsDynamic() {
       const User_loggedin_info_String =
         localStorage.getItem("User_loggedin_info");
