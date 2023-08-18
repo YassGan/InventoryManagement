@@ -6,13 +6,15 @@
 
 <script>
 export default {
-  data() {
+
+data() {
     return {
       sessionTimeoutMinutes: 10,
-      sessionTimer: null,
+      sessionTimer:localStorage.getItem("sessionTimeoutMinutes"),
     };
   },
   methods: {
+  
     startSessionTimer() {
       clearTimeout(this.sessionTimer);
 
