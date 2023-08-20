@@ -81,6 +81,45 @@ p {
   font-size: 14px;
   color: #555;
 }
+
+
+@media (max-width: 768px) {
+  /* Adjustments for smaller screens */
+  .accueil {
+    padding: 20px;
+  }
+
+  .fonctionnalites {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .fonctionnalite {
+    padding: 15px;
+  }
+
+  /* Make buttons more touch-friendly */
+  .fonctionnalite button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+
+
 </style>
 
 
