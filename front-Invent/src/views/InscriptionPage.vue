@@ -16,24 +16,20 @@
           <p>Max Inventaires: {{ pack.maxInventaires }}</p>
         </div>
       </div>
+
+      
       <div v-else>
-        <div style="margin-bottom: 80px">
+        <div class="PackInfo">
           <h2>{{ selectedpack.nomPackage }}</h2>
           <p>Vous avez choisi le pack {{ selectedpack.nomPackage }}.</p>
         </div>
 
         <form
-          style="background: white"
           @submit.prevent="submitFormAdd"
           class="form-content"
         >
           <div
-            style="
-              display: flex;
-              justify-content: space-around;
-              padding: 50px;
-              width: 900px;
-            "
+       class="formWrapper"
           >
             <div>
               <div class="form-group">
@@ -252,7 +248,100 @@ export default {
 };
 </script>
 
+
+
+
+
+
+
 <style scoped>
+@media screen and (max-width: 768px) {
+   .form-content {
+    padding: 20px;
+    width: 300px;
+    padding-right: 40px;
+    margin-bottom: 600px;
+  }
+
+  .form-content > div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-group {
+    width: 90%;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 90%;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .radioContainer {
+    text-align: center;
+  }
+
+  .error-message {
+    font-size: 12px;
+    text-align: center;
+    color: #f44336;
+    margin-top: 10px;
+  }
+
+  .button {
+    width: 100%;
+  }
+ .PackInfo{
+  margin-top: 300px !important;
+ }
+
+
+ .PageContainer{
+    padding-top: 250px;
+    background-color: #ddd;
+    height: 800px !important;
+
+
+  }
+  .packs-container {
+    flex-direction: column;
+    align-items: center;
+        background-color: #ddd;
+        
+
+  }
+
+
+
+  .form-content {
+    padding: 20px;
+  }
+
+  .form-group {
+    max-width: 100%;
+  }
+
+}
+
+
+
+
+
+.formWrapper{
+ 
+              display: flex;
+              justify-content: space-around;
+              padding: 50px;
+              width: 800px;
+            
+}
+
 .error-message {
   color: #f44336;
   margin-top: 10px;
@@ -339,6 +428,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: white;
+  border-radius:20px ;
 }
 
 .form-group {

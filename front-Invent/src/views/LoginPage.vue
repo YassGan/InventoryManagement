@@ -1,3 +1,6 @@
+
+
+
 <template>
   <div class="AppInvContainer">
     <div class="AppInv">
@@ -156,7 +159,7 @@ export default {
   }
 
   .form-container {
-    width: 95% !important;
+    width: 80% !important;
     padding: 20px ;
     height: auto;
   }
@@ -175,6 +178,9 @@ export default {
   
   .error-message {
     font-size: 12px;
+  }
+  .AppInv {
+    width: 90% !important; /* Use !important to ensure this style is applied */
   }
 }
 
@@ -210,7 +216,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 65%;
   border-radius: 10px;
 }
 
@@ -225,7 +231,7 @@ export default {
   overflow: hidden;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+box-shadow: -4px -1px 32px -5px rgba(0,0,0,0.11);
 }
 
 .title-container {
@@ -234,7 +240,7 @@ export default {
 
 .image-container {
   display: flex;
-  height: 84vh;
+  height: 88vh;
   padding: 30px;
 }
 

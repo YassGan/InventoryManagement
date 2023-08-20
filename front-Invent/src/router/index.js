@@ -69,7 +69,6 @@ const routes = [
     path: '/InscriptionPage',
     name: 'InscriptionPage',
     component: () => import("@/views/InscriptionPage.vue"),
-    meta: { requiresAuth: true }, //The user should be logged in to be able to see this page
 
   },
 
