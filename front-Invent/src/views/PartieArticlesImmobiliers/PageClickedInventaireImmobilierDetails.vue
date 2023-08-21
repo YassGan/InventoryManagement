@@ -1,8 +1,45 @@
 <template>
   <div style="padding-bottom: 200px">
-    <AppNavbar></AppNavbar>
 
-    <h3 style="margin-top: 80px; margin-bottom: 25px">
+
+
+
+  <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h3 style="margin-top: 80px; margin-bottom: 25px;padding-left:9px">
       Détails spécifiques de l'inventaire immobilier cliqué
     </h3>
     <button
@@ -157,13 +194,19 @@ import html2pdf from "html2pdf.js";
 import { HTTP } from "/axios";
 
 import AppNavbar from "../../components/AppNavbar.vue";
+import MobileSidebar from "../../components/SideBarMobile.vue";
 
 export default {
   components: {
     AppNavbar,
+                    MobileSidebar,
+
   },
   data() {
     return {
+                   mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
       SpecificInventoryArticles: 0,
       reloadTest: 0,
       afficherButtonToggle: 0,
@@ -172,9 +215,13 @@ export default {
   },
   async mounted() {
     this.dateAujourdhuiObj = new Date();
+                            window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
 
   },
   created() {
+        this.handleResize(); 
+
     if (!localStorage.getItem("isReloaded")) {
       localStorage.setItem("isReloaded", "true");
 
@@ -185,6 +232,41 @@ export default {
   },
 
   methods: {
+
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+
+    toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
+
+
+
+
     // New method to calculate the difference in years between two dates
     calculateDifferenceInYears(date1, date2) {
       const differenceInMilliseconds = Math.abs(date2 - date1);
@@ -312,6 +394,103 @@ for (const obj of response.data) {
 </script>
 
 <style scoped>
+
+
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+.navbarContainer{
+  margin: 0;
+  padding: 0;
+}
+
+
+@media (max-width: 768px) {
+  .ConteneurTable{
+    overflow-x:auto ;
+  }
+
+.InventoryTableContainer{
+  width: 90%  !important;
+}
+
+
+  /* Adjustments for smaller screens */
+  h3{
+  font-size: 16px;
+}
+
+  .accueil {
+    padding: 20px;
+  }
+
+  .fonctionnalites {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .fonctionnalite {
+    padding: 15px;
+  }
+
+  /* Make buttons more touch-friendly */
+  .fonctionnalite button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
 .normalButton {
   padding: 10px 20px;
   margin: 10px;

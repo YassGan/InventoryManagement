@@ -1,6 +1,47 @@
 <template>
   <div>
-    <AppNavbar></AppNavbar>
+
+
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div v-if="successfuleInventoryCreation == 0" class="container">
       <div style="margin-top: 40px">
@@ -26,7 +67,10 @@
           Loading ...
         </h4>
       </div>
-      <div style="display: flex; justify-content: center">
+
+            <div class="tableMainContainer" >
+
+      <div class="tableContainer" >
         <table class="data-table">
           <thead>
             <tr>
@@ -133,12 +177,15 @@
           </tbody>
         </table>
       </div>
+            </div>
     </div>
   </div>
 </template>
 
 <script>
 import AppNavbar from "../../components/AppNavbar.vue";
+import MobileSidebar from "../../components/SideBarMobile.vue";
+
 import { HTTP } from "/axios";
 
 import Swal from "sweetalert2";
@@ -150,9 +197,14 @@ import moment from "moment";
 export default {
   components: {
     AppNavbar,
+                    MobileSidebar,
+
   },
   data() {
     return {
+         mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
       momentObj: moment(), // Create a moment object with the desired date
 
       importedData: [],
@@ -164,18 +216,56 @@ export default {
       showSuccessMessage: false,
     };
   },
+     created() {
+    this.handleResize(); 
+  },
   mounted() {
+                window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
     document.title = "Page de vérification de comptage";
     console.log("Import button click " + this.importButtonClick);
     this.showSuccessMessage = true;
   },
 
   computed: {
+              sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
     formattedDate() {
       return this.formatDate(this.momentObj);
     },
   },
   methods: {
+        handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+
+    toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
     formatDate(moment) {
       const date = moment.format("DD/MM/YYYY");
       const time = moment.format("HH:mm");
@@ -401,6 +491,80 @@ export default {
 </script>
 
 <style scoped>
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px; 
+  }
+
+  .CasualButton {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+  .lnormalInputStyle,
+  .lwrongInputStyle {
+    width: 40px; 
+  }
+  .tableContainer{
+      overflow-x: auto !important;
+}
+}
+
+
+
+
+
+
+.tableMainContainer{
+  display:flex;justify-content:center;
+}
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+.navbarContainer{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
 .NavyBlue {
   background: #3b5374;
 }
