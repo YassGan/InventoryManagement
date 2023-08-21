@@ -555,6 +555,10 @@ toggleSidebar() {
   h3 {
     margin-bottom: 0.5rem;
   }
+    h3{
+  font-size: 16px;
+  margin-top: 42px !important;
+}
 
   .grid {
     grid-template-columns: repeat(2, 1fr);

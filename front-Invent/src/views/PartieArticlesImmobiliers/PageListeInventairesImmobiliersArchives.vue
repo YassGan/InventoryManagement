@@ -22,8 +22,8 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th style="padding-left: 100px">Ordre</th>
-                <th style="padding-left: 100px">Nom Inventaire</th>
+                <th style="">Ordre</th>
+                <th style="">Nom Inventaire</th>
                 <th>Date de création</th>
               </tr>
             </thead>
@@ -34,10 +34,10 @@
                 v-for="(inventory, index) in filteredInventories"
                 :key="inventory._id"
               >
-                <td style="display: flex; justify-content: center">
+                <td style="">
                   {{ index+1 }}
                 </td>
-                <td style="padding-left: 100px">
+                <td style="">
                   {{ inventory.nomInventaire }}
                 </td>
                 <td>{{ inventory.DateInsertion_DB }}</td>
@@ -123,6 +123,27 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+@media (max-width: 768px) {
+  .data-table th,
+  .data-table td {
+    padding: 5px;
+    font-size: 16px; 
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 h1 {
   margin-top: 70px;
   color: #2c3e50;

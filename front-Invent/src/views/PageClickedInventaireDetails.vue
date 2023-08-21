@@ -1,6 +1,43 @@
 <template>
   <div style="padding-bottom: 200px">
-    <AppNavbar></AppNavbar>
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <h3 style="margin-top: 80px; margin-bottom: 25px">
       Détails spécifiques de l'inventaire
@@ -33,11 +70,7 @@
           </div>
         </div>
       </div>
-
-      <div class="DataTableWrapper">
-        <div class="DataTableContainer">
-          <div ref="myElement" class="DataTableContainer">
-            <div class="InventoryBasicDetails">
+       <div class="InventoryBasicDetails">
               <div class="inventory-item"></div>
               <div class="inventory-item">
                 <strong>Nom Inventaire:</strong>
@@ -48,6 +81,10 @@
                 {{ this.dateCreationInventaire }}
               </div>
             </div>
+      <div class="DataTableWrapper">
+        <div class="DataTableContainer">
+          <div ref="myElement" class="DataTableContainer">
+     
             <div class="ConteneurTable">
               <table id="myTable" class="data-table">
                 <thead>
@@ -138,20 +175,41 @@ import html2pdf from "html2pdf.js";
 import { HTTP } from "/axios";
 
 import AppNavbar from "../components/AppNavbar.vue";
+import MobileSidebar from "../components/SideBarMobile.vue";
 
 export default {
   components: {
     AppNavbar,
+                MobileSidebar,
+
+  },
+  
+    computed: {
+      sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
+    formattedDate() {
+      return this.formatDate(this.momentObj);
+      
+    },
   },
   data() {
     return {
+                  mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
       SpecificInventoryArticles: 0,
       reloadTest: 0,
       afficherButtonToggle: 0,
     };
   },
-  async mounted() {},
+  async mounted() {
+        this.handleResize(); 
+
+  },
   created() {
+        this.handleResize(); 
+
     if (!localStorage.getItem("isReloaded")) {
       localStorage.setItem("isReloaded", "true");
 
@@ -162,6 +220,35 @@ export default {
   },
 
   methods: {
+            handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
 exportToSCV() {
   const table = document.querySelector("#myTable");
   const rows = [];
@@ -252,6 +339,107 @@ exportToSCV() {
 </script>
 
 <style scoped>
+
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .PageTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .import-button {
+    font-size: 14px;
+  }
+
+  .Pdf_Csv_ButtonsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Pdf_Csv_ButtonsContainer div {
+    margin-bottom: 10px;
+  }
+
+  .DataTableContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 5px;
+  }
+
+  .InventoryBasicDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+justify-content: center;
+padding-left:50px ;
+}
+
+  .inventory-item {
+    margin-bottom: 5px;
+  }
+
+  .DataTableWrapper {
+    width: 90%;
+        overflow-x:auto !important ;
+
+  }
+  .myTable{
+        width: 90%;
+  }
+}
+
+
+
+
+
+
+
 .normalButton {
   padding: 10px 20px;
   margin: 10px;

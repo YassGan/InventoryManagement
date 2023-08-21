@@ -1,9 +1,20 @@
 <template>
   <div v-show="isSidebarOpen" class="mobile-sidebar">
  
+
+    <a href="/AfterLoginAdminPage">
+      <div class="logo-container">
+        <div>
+          <img src="../assets/WebsiteLogo.png" alt="Logo" class="logo" />
+          <div class="logo-text">Gestion d'inventaires</div>
+        </div>
+      </div>
+    </a>
+
+
     <ul  class="sidebar-links">
       <li v-for="link in mobileLinks" :key="link.path" >
-<router-link :to="link.path" v-if="link.userRole === 'admin_produit'">{{ link.label }}</router-link>
+<router-link :to="link.path" v-if="link.userRole ===UserRole">{{ link.label }}</router-link>
       </li>
     </ul>
   </div>
@@ -17,16 +28,20 @@ export default {
 
  mobileLinks: [
   { userRole: 'admin_produit', path: '/PagePrincipale', label: 'Home' },
+    { userRole: 'admin_immo', path: '/PagePrincipale', label: 'Home' },
+
   { userRole: 'admin_produit', path: '/PageListeInventairesArchives', label: 'Inventaires Archivés' },
+    { userRole: 'admin_immo', path: '/PageListeInventairesImmobiliersArchives', label: 'Inventaires Immobiliers Archivés' },
+
   { userRole: 'admin_produit', path: '/PageListeInventairesPasVerifies', label: 'Inventaires Importés' },
+    { userRole: 'admin_immo', path: '/PageListeInventairesImmobiliersPasVerifies', label: 'Inventaires Immobiliers Importés' },
+
   { userRole: 'admin_produit', path: '/PageCreationNvArticles', label: 'Créer Inventaire' },
+    { userRole: 'admin_immo', path: '/PageCreationNvArticlesImmobiliers', label: 'Articles Immobiliers' },
+
   { userRole: 'admin_produit', path: '/PageListeUsers', label: 'Utilisateurs ' },
 
   
-  { userRole: 'admin_immo', path: '/PagePrincipale', label: 'Home' },
-  { userRole: 'admin_immo', path: '/PageListeInventairesImmobiliersArchives', label: 'Inventaires Immobiliers Archivés' },
-  { userRole: 'admin_immo', path: '/PageListeInventairesImmobiliersPasVerifies', label: 'Inventaires Immobiliers Importés' },
-  { userRole: 'admin_immo', path: '/PageCreationNvArticlesImmobiliers', label: 'Articles Immobiliers' },
   { userRole: 'admin_immo', path: '/PageListeUsers', label: 'Utilisateurs ' },
 
 ],
@@ -49,6 +64,9 @@ export default {
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+}
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -63,13 +81,12 @@ export default {
 
 .sidebar-links {
   list-style: none;
-  padding: 150px 0;
+  padding: 10px 0;
   height: 200px;
 }
 
 .sidebar-links li {
   padding: 10px;
-    margin: 20px;
 
 
 }
@@ -105,4 +122,26 @@ export default {
 .hamburger-button.open span {
   background-color: #ff8d6a;
 }
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  filter: invert(100%) brightness(100%); 
+}
+
+.logo-text {
+  font-size: 16px;
+  color: white;
+}
+
+
+
 </style>

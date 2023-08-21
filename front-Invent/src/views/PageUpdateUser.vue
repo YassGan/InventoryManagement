@@ -1,6 +1,42 @@
 <template>
   <div>
-    <AppNavbar></AppNavbar>
+
+
+
+
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
+
+
+
+
 
     <div class="PageContainer">
       <h2 class="PageTitle">Page de mise à jour d'utilisateur</h2>
@@ -76,11 +112,20 @@
 import { HTTP } from "/axios";
 import Swal from "sweetalert2";
 import AppNavbar from "../components/AppNavbar.vue";
+import MobileSidebar from "../components/SideBarMobile.vue";
+
 import router from "@/router"
 
 export default {
   components: {
     AppNavbar,
+                        MobileSidebar,
+
+  },
+      computed: {
+          sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
   },
   data() {
     return {
@@ -93,12 +138,55 @@ export default {
       User_loggedin_info_Object: Object,
       usersSocieteNumber: 0,
       maxAgentdeComptage: 0,
+         mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
     };
   },
   mounted() {
     this.getUserByEmail();
+         window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
   },
   methods: {
+
+
+
+
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+
+    toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
+
+
+
+
         togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
@@ -175,6 +263,90 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+.navbarContainer{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .FormContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .LabelContainer {
+    width: 130px;
+  }
+
+  .FormRow {
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
 .PageContainer {
   justify-content: center;
   align-items: center;
@@ -182,7 +354,7 @@ export default {
 }
 
 .PageTitle {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 20px;
   color: #333;
   padding-top: 70px;

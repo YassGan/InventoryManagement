@@ -1,27 +1,53 @@
 <template>
   <div>
-    <AppNavbar></AppNavbar>
+
+
+
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
+
+
+
+
 
     <div class="PageContainer">
-      <h2 class="PageTitle">Page de création de nouveaux utilisateurs</h2>
-      <p>Agents de comptage : {{ this.usersSocieteNumber }}</p>
-      <p>
-        il en vous reste :
-        {{ this.maxAgentdeComptage - this.usersSocieteNumber }}
-      </p>
-
-      <p style="margin-top: 50px; margin-bottom: -40px">
+      <h3 class="PageTitle">Page de création de nouveaux utilisateurs</h3>
+  
+      <p style="margin-top: 20px; margin-bottom: 0">
         Introduire les données du nouveau utilisateur
       </p>
       <div class="FormWrapper">
         <div class="FormContainer">
-          <h2 class="FormTitle"></h2>
-          <form @submit.prevent="registerUser" class="Form" style="padding-top:20px">
-              <div class="FormRow">
-              <label class="LabelContainer" for="nomPrenom"
-                >Nom et Prénom:</label
-              >
-              <input style="width:287px;height:29px;border:1px solid lightgray" type="text" id="nomPrenom" v-model="nomPrenom" required />
+          <form @submit.prevent="registerUser" class="Form">
+            <div class="FormRow">
+              <label class="LabelContainer" for="nomPrenom">Nom et Prénom:</label>
+              <input type="text" id="text" v-model="nomPrenom" required />
             </div>
 
             <div class="FormRow">
@@ -30,28 +56,13 @@
             </div>
             <div class="FormRow">
               <label class="LabelContainer" for="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                v-model="password"
-                required
-              />
+              <input type="password" id="password" v-model="password" required />
             </div>
-          
-
 
             <div class="FormRow">
-              <label class="LabelContainer" for="confirmPassword"
-                >Confirm Password:</label
-              >
-              <input
-                type="password"
-                id="confirmPassword"
-                v-model="confirmPassword"
-                required
-              />
+              <label class="LabelContainer" for="confirmPassword">Confirm Password:</label>
+              <input type="password" id="confirmPassword" v-model="confirmPassword" required />
             </div>
-            
 
             <div class="ButtonContainer">
               <button class="CustomButton" type="submit">Ajouter</button>
@@ -65,21 +76,28 @@
     </div>
   </div>
 </template>
-
 <script>
 import moment from "moment";
 
 import { HTTP } from "/axios";
 import Swal from "sweetalert2";
 import AppNavbar from "../components/AppNavbar.vue";
+import MobileSidebar from "../components/SideBarMobile.vue";
+
+import router from '@/router'
 
 export default {
   components: {
     AppNavbar,
+            MobileSidebar,
+
   },
   data() {
     return {
-      momentObj: moment(), // Create a moment object with the desired date
+            mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
+      momentObj: moment(), 
       nomPrenom: "",
 
       password: "",
@@ -92,15 +110,54 @@ export default {
     };
   },
   computed: {
+      sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
     formattedDate() {
       return this.formatDate(this.momentObj);
+      
     },
+  },
+    created() {
+    this.handleResize(); 
   },
   mounted() {
     this.gettingAlltheUsersOfTheCompany();
     console.log(this.usersSocieteNumber);
+                window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
   },
   methods: {
+        handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
+
 extractStringAfterAdminPrefix(fullString) {
       const adminPrefix = 'admin-';
       const prefixIndex = fullString.indexOf(adminPrefix);
@@ -110,8 +167,10 @@ extractStringAfterAdminPrefix(fullString) {
     }
     ,
     reloadPage() {
-      window.location.reload();
-      console.log("reloading");
+  
+          router.push("PageListeUsers/");
+
+    console.log("reloading");
     },
 
     formatDate(moment) {
@@ -213,6 +272,92 @@ extractStringAfterAdminPrefix(fullString) {
 
 
 <style scoped>
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+
+@media (max-width: 768px) {
+
+h3{
+  font-size: 14px;
+}
+
+
+
+  .FormContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .LabelContainer {
+    width: 100px;
+  }
+
+  .FormRow {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  input[type="password"],
+  input[type="email"],
+  input[type="text"] {
+    width: 100%;
+  }
+
+  .ButtonContainer {
+    justify-content: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .ErrorMessage {
   color: red;
 }
@@ -232,10 +377,10 @@ extractStringAfterAdminPrefix(fullString) {
 }
 
 .PageTitle {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 20px;
   color: #333;
-  padding-top: 70px;
+  padding-top: 20px;
 }
 
 .FormWrapper {
@@ -284,7 +429,7 @@ input[type="email"] {
 }
 
 .CustomButton {
-  background-color: #4caf50;
+  background-color: #d0683c;
   color: white;
   border: none;
   padding: 10px 20px;
