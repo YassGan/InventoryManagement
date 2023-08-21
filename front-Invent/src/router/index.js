@@ -73,13 +73,18 @@ const routes = [
   },
 
   {
-    path: '/FacebookLoginPage',
+    path: '/FacebookLoginPage/:email',
     name: 'FacebookLoginPage',
     component: () => import("@/views/FacebookLoginPage.vue"),
 
   },
 
+  {
+    path: '/goodupdate/',
+    name: 'goodupdate',
+    component: () => import("@/views/goodupdate.vue"),
 
+  },
   
   {
     path: '/PageCreationNvArticlesImmobiliers',

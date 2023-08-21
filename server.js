@@ -49,6 +49,8 @@ const InventairesImmobiliersAPI = require('./routes/InventairesImmobiliersAPI.js
 app.use('/api/InventairesImmobiliersAPI', InventairesImmobiliersAPI);
 
 
+const TableAPI = require('./routes/TableAPI.js');
+app.use('/api/TableAPI', TableAPI);
 
 
 // Connexion à MongoDB 

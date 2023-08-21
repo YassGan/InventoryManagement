@@ -34,7 +34,7 @@
               placeholder="Confirm your new password"
             />
           </div>
-          <button class="modify-password-btn" @click="modifyPassword">Modify Password</button>
+<button class="modify-password-btn" type="button" @click="modifyPassword">Modify Password</button>
         </form>
       </div>
     </div>
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import { HTTP } from "/axios";
+import router from "@/router";
+
 export default {
   name: 'PasswordModifyPage',
   data() {
@@ -51,19 +54,32 @@ export default {
       confirmNewPassword: ''
     };
   },
-  methods: {
-    modifyPassword() {
-      if (this.newPassword !== this.confirmNewPassword) {
-        alert('New passwords do not match. Please try again.');
-        return;
-      }
+ methods: {
+    async modifyPassword() {
+  event.preventDefault(); // Prevent the default form submission
 
-      // Perform password modification logic here
-      alert('Password modified successfully!');
-      // Reset fields
-      this.currentPassword = '';
-      this.newPassword = '';
-      this.confirmNewPassword = '';
+
+      const requestBody = {
+        currentPassword: this.currentPassword,
+        newPassword: this.newPassword,
+        passwordConfirmation: this.confirmNewPassword,
+        email:    this.$route.params.email,
+        dateInsertion_DB: new Date().toISOString()
+      };
+
+      console.log(requestBody)
+
+      try {
+        const response = await HTTP.post('/TableAPI/addEntry', requestBody);
+        if (response.status === 201) {
+          router.push("/goodupdate")
+
+       
+        }
+      } catch (error) {
+        alert('An error occurred while modifying the password, please retry');
+        console.error(error);
+      }
     }
   }
 };
