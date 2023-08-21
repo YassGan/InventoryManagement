@@ -9,7 +9,7 @@ export default {
 
 data() {
     return {
-      sessionTimeoutMinutes: 10,
+      sessionTimeoutMinutes: 30,
       sessionTimer:localStorage.getItem("sessionTimeoutMinutes"),
     };
   },

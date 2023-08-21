@@ -117,7 +117,6 @@ export default {
 
 
 
-    // Check if the current route is not already the '/loginPage' route
     if (this.$route.path !== '/loginPage') {
       router.push('/loginPage');}
 

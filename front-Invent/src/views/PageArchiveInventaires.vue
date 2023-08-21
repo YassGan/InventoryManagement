@@ -1,6 +1,35 @@
 <template>
   <div style="height:100vh;background:#f5f7fa;">
-    <AppNavbar></AppNavbar>
+
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
+
+
+
+
 
      <div style="margin-top:60px">
       <h3>Liste de vos inventaires Nouvelle page</h3> 
@@ -51,29 +80,68 @@
 import { HTTP } from '/axios';
 import router from '@/router';
 import AppNavbar from '../components/AppNavbar.vue';
+import MobileSidebar from "../components/SideBarMobile.vue";
 
 export default {
   
   components: {
     AppNavbar,
+            MobileSidebar,
+
   },
  
   data() {
     return {
+            mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
       Inventories: [],
       isLoading: false,
       searchTerm: '',
     };
+  },    created() {
+    this.handleResize(); 
   },
 
   mounted() {
     this.fetchInventories();
         document.title = 'Page d\'archives';
+                    window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
 
   },
   
 
-  methods: {
+  methods: {    handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
+
     InventoryDetailPage(id) {
       router.push('/PageClickedInventaireDetails/' + id);
     },
@@ -99,6 +167,9 @@ export default {
   },
 
   computed: {
+      sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
     filteredInventories() {
       return this.Inventories.filter((inventory) => {
         return inventory.NomInventaire.toLowerCase().includes(this.searchTerm.toLowerCase());
@@ -109,6 +180,112 @@ export default {
 </script>
 
 <style scoped>
+
+
+
+@media (max-width: 768px) {
+  /* Adjustments for smaller screens */
+  h3{
+  font-size: 16px;
+}
+
+  .accueil {
+    padding: 20px;
+  }
+
+  .fonctionnalites {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  .fonctionnalite {
+    padding: 15px;
+  }
+
+  /* Make buttons more touch-friendly */
+  .fonctionnalite button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+.navbarContainer{
+  margin: 0;
+  padding: 0;
+}
+
+.InputSearch {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  width: 200px !important;
+}
+
+
+table.data-table {
+  border-collapse: collapse;
+  border: 1px solid #2e3d52;
+  border-radius: 5px;
+}
+.InventoryTableContainer {
+width: 90% !important;
+}
+
+
+
+
 h1 {
   margin-top: 70px;
   color: #2c3e50;

@@ -271,6 +271,12 @@ const routes = [
   },
 
 
+  {
+    path: '/testingSideBar/',
+    name: 'testingSideBar',
+    component: () => import("@/views/testingSideBar.vue"),
+
+  },
 
   {
     path: '/ErrorPage',

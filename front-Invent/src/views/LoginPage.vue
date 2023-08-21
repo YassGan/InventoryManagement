@@ -155,13 +155,14 @@ export default {
   }
 
   .image-container {
-    display: none !important; /* Important rule to override any conflicting styles */
+    display: none !important; 
   }
 
   .form-container {
     width: 80% !important;
     padding: 20px ;
     height: auto;
+    
   }
 
   .PageTitle {
@@ -180,7 +181,7 @@ export default {
     font-size: 12px;
   }
   .AppInv {
-    width: 90% !important; /* Use !important to ensure this style is applied */
+    width: 90% !important; 
   }
 }
 

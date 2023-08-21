@@ -1,6 +1,30 @@
 <template>
   <div>
-    <AppNavbar></AppNavbar>
+
+
+
+
+    <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
+      <!-- Your existing navigation bar code here -->
+      <AppNavbar> </AppNavbar>
+
+    </div>
+
+
+    <div   class="mobile-sidebar"
+  :class="{open: isOpen, closed: !isOpen}" v-else>
+      <!-- Hamburger button -->
+
+      <!-- Mobile sidebar -->
+      <MobileSidebar v-show="isSidebarOpen" />
+    </div>
+
 
     <div class="container">
       <div style="margin-top: 40px">
@@ -26,7 +50,7 @@
           </p>
         </div> -->
 
-        <h3>Créer un nouveau inventaire</h3>
+        <h3 class="PageTilte" >Créer un nouveau inventaire</h3>
       </div>
 
       <input
@@ -103,12 +127,15 @@
 <script>
 import moment from "moment";
 import AppNavbar from "../components/AppNavbar.vue";
+import MobileSidebar from "../components/SideBarMobile.vue";
+
 import Swal from "sweetalert2";
 import router from "@/router";
 import { HTTP } from "/axios";
 export default {
   components: {
     AppNavbar,
+    MobileSidebar,
   },
   data() {
     return {
@@ -119,10 +146,16 @@ export default {
       maxInventaires: 0,
       nombreInventairesArchivés: 0,
       nombreInventairePasEncoreValidés: 0,
-      testMaxInv:false
+      testMaxInv:false,
+            mobileBreakpoint: 768,
+      windowWidth: window.innerWidth,
+      isSidebarOpen: false,
     };
   },
   computed: {
+      sidebarState() {
+    return this.isSidebarOpen ? 'open' : 'closed';
+  },
     formattedDate() {
       return this.formatDate(this.momentObj);
     },
@@ -136,8 +169,54 @@ export default {
   mounted() {
     document.title = "Affichage Inventaire";
     this.gettingPackageInfo();
+                window.addEventListener('resize', this.handleResize);
+    this.handleResize(); 
+  },
+      created() {
+    this.handleResize(); 
   },
   methods: {
+        showEmptyInputPopup() {
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text: "Veuillez entrer le nom de l'inventaire",
+      });
+    },
+
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false; 
+        this.showHamburger=false;
+      }
+      else{
+                this.showHamburger=true;
+
+      }
+    },
+toggleSidebar() {
+        this.isOpen = !this.isOpen;
+
+  if (this.isSidebarOpen) {
+    this.isSidebarOpen = false;
+
+  } else {
+    this.isSidebarOpen = true; 
+  }
+
+},
+  watch: {
+    windowWidth(newValue) {
+      if (newValue >= this.mobileBreakpoint) {
+        this.isSidebarOpen = false;
+      }
+    },
+  },
+
+
+
+
     async gettingPackageInfo() {
       const User_loggedin_societe_package_info = localStorage.getItem(
         "User_loggedin_societe_package_info"
@@ -197,6 +276,7 @@ export default {
       return result;
     },
     async ajouter_Articles_DB() {
+
       // alert(this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés))
       if(  this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés)<=0){
                 Swal.fire({
@@ -284,6 +364,12 @@ export default {
     },
     openFileInput() {
       this.$refs.fileInput.click();
+
+         // Check if input field is empty
+    if (this.isSearchInputEmpty) {
+      this.showEmptyInputPopup(); // Show the pop-up message
+      return; // Stop further execution
+    }
     },
     parseCSV(csv) {
       const rows = csv.split("\n");
@@ -403,6 +489,87 @@ export default {
 
 
 <style scoped>
+
+.PageTilte{
+  margin-top:-30px;
+  margin-bottom: 30px;
+}
+
+
+
+.hamburger-button {
+  position: relative;
+  z-index: 100;
+    display: block;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mobile-sidebar.open {
+  transform: translateX(0);  
+}
+
+.mobile-sidebar.closed {
+  transform: translateX(-100%);
+}
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 99;
+  background-color: #d1d1d1;
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  transition: transform 0.3s ease; 
+}
+.hamburger-button span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px auto;
+}
+.navbarContainer{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+@media (max-width: 600px) {
+
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+  
+  .container {
+    padding: 10px;    
+  }
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+}
+
+
+
+
+
 .InputSearch {
   padding: 10px;
   border: 1px solid #ccc;
