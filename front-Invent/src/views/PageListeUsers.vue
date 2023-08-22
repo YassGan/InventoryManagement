@@ -284,7 +284,7 @@ export default {
   .fonctionnalite button {
     padding: 5px 10px;
     font-size: 12px;
-  }
+    }
 }
 
 

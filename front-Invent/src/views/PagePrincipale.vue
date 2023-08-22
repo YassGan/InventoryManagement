@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="PageContainerPagePrincipale">
 
 
     <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
@@ -204,8 +204,9 @@ p {
 
 
 @media (max-width: 768px) {
-
-
+.PageContainerPagePrincipale{
+  height:auto
+}
 .accueil {
     padding: 20px;
   }
