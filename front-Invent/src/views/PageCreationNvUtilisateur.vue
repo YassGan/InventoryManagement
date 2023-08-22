@@ -37,9 +37,9 @@
 
 
     <div class="PageContainer">
-      <h3 class="PageTitle">Page de création de nouveaux utilisateurs</h3>
+      <h3 style="margin-top:55px" class="PageTitle">Page de création de nouveaux utilisateurs</h3>
   
-      <p style="margin-top: 20px; margin-bottom: 0">
+      <p style="margin-top: 20px; margin-bottom: 50px">
         Introduire les données du nouveau utilisateur
       </p>
       <div class="FormWrapper">
@@ -47,7 +47,11 @@
           <form @submit.prevent="registerUser" class="Form">
             <div class="FormRow">
               <label class="LabelContainer" for="nomPrenom">Nom et Prénom:</label>
-              <input type="text" id="text" v-model="nomPrenom" required />
+              
+              <input style="  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;" type="text" id="text" v-model="nomPrenom" required />
             </div>
 
             <div class="FormRow">
@@ -94,6 +98,7 @@ export default {
   },
   data() {
     return {
+      isAddingInProgress:false,
             mobileBreakpoint: 768,
       windowWidth: window.innerWidth,
       isSidebarOpen: false,
@@ -208,6 +213,8 @@ extractStringAfterAdminPrefix(fullString) {
     },
 
     async registerUser() {
+        this.isAddingInProgress = true;
+
       const momentObj = moment();
       const formattedDate = this.formatDate(momentObj);
       console.log(formattedDate);
@@ -264,6 +271,8 @@ extractStringAfterAdminPrefix(fullString) {
           text: this.errorMessage,
         });
       }
+        this.isAddingInProgress = false;
+
     },
   },
 };
@@ -429,7 +438,7 @@ input[type="email"] {
 }
 
 .CustomButton {
-  background-color: #d0683c;
+  background-color: #da622f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -440,6 +449,6 @@ input[type="email"] {
 }
 
 .CustomButton:hover {
-  background-color: #45a049;
+  background-color: #fd8957;
 }
 </style>

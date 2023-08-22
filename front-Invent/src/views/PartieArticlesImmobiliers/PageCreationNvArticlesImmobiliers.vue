@@ -40,7 +40,7 @@
 
     <div></div>
 
-    <div class="container">
+    <div style="max-width:1300px" class="container">
       <div style="margin-top: 40px">
         <!-- <div v-if="importedData.length == 0">
           <p>
@@ -338,6 +338,9 @@ export default {
   },
   data() {
     return {
+                isAddingInProgress: false,
+
+      testMaxInv:false,
            mobileBreakpoint: 768,
       windowWidth: window.innerWidth,
       isSidebarOpen: false,
@@ -562,7 +565,23 @@ toggleSidebar() {
       return result;
     },
     async ajouter_Articles_Immobilier_DB() {
+        this.isAddingInProgress = true;
+
     // pour assurer que l'action de stockage dans la base de données ne se fait qu'une seule fois s'il clique sur le bouton ajouter plus qu'une fois
+
+
+      if(  this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés)<=0){
+                Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Vous avez atteint le nombre maximal d'inventaires de votre pack",
+        });
+        this.testMaxInv=true;
+      }
+
+
+
+      if(this.testMaxInv==false){
 
     if(this.ajouterButtonClicked===0){
               this.ajouterButtonClicked++;
@@ -643,6 +662,8 @@ toggleSidebar() {
         console.error("Error adding article:", error);
       }
     }
+      }
+        this.isAddingInProgress = false;
 
    },
     openFileInput() {
@@ -832,7 +853,9 @@ toggleSidebar() {
 }
 
 
-
+.tableContainer{
+  width: 100%;
+}
 
 
 
@@ -852,12 +875,11 @@ toggleSidebar() {
   border-color: #c9c546;
 }
 
-.ImportAjouterButtonContainer {
-}
+
 .container {
-  max-width: 90%;
   margin: 0 auto;
   padding: 20px;
+  width: 100%;
 }
 
 .import-button {

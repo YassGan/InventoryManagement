@@ -39,19 +39,19 @@
 
 
 
-    <div class="PageContainer">
+    <div  class="PageContainer">
             <div style="margin-top: 60px">
       <h3>
-        Liste de vos utilisateurs
+        Liste de vos agents de comptage
       </h3>
     </div>
 
       <!-- Button to navigate to create new user page -->
       <div style="margin-bottom:40px" class="CreateButtonContainer">
-        <router-link to="/PageCreationNvUtilisateur" class="CreateButton">Créer un nouveau user</router-link>
+        <router-link to="/PageCreationNvUtilisateur" class="CreateButton">Créer un nouveau agent</router-link>
       </div>
 
-
+<div style=" width:100%;padding-left:150px">
 <div class="TableContainer">
       <!-- Display the list of users in a table -->
 <table class="UserTable">
@@ -74,6 +74,8 @@
           </tr>
         </tbody>
       </table>
+</div>
+
 </div>
     </div>
   </div>
@@ -223,7 +225,7 @@ export default {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{
@@ -332,7 +334,7 @@ padding-right: 10px;
 }
 
 .UserTable {
-  width: 60%;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 20px;
 }
@@ -367,7 +369,7 @@ button {
   font-size: 14px;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
 }
 
 .CustomButton:hover {
@@ -386,20 +388,24 @@ button {
   font-size: 14px;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
   text-decoration: none;
 }
 
 .CreateButton:hover {
-  background-color: #45a049;
+  background-color: #d5613e;
 }
 
 .redButton {
   background: rgb(214, 38, 38);
 }
-
-.yellowButton {
-  background: rgb(214, 190, 38);
+.redButton:hover {
+  background: rgb(230, 63, 63);
 }
-
+.yellowButton {
+  background: rgb(20, 111, 160);
+}
+.yellowButton:hover {
+  background: rgb(30, 147, 210);
+}
 </style>

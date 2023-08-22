@@ -227,7 +227,7 @@ export default {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{

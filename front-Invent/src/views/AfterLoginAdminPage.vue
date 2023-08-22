@@ -91,7 +91,7 @@ export default {
 .welcome-page {
   text-align: center;
   margin: 20px;
-  background: rgb(245, 247, 250);
+  background: #ddddddb4;
   height: 100vh;
   padding: 0;
   margin: 0;
@@ -140,11 +140,11 @@ background: rgb(29, 110, 142);
 }
 
 .BeigeButton{
-background: rgb(142, 125, 29);
+background: #dc4403e4;
 }
 
 .BeigeButton:hover{
-    background: rgb(168, 151, 56);
+background: #ff4e00;
 
 }
 

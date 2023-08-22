@@ -25,7 +25,7 @@
 
 
   <div class="accueil">
-    <h1>Bienvenue sur votre site web</h1>
+    <h1 style="font-size:22px" >Bienvenue sur votre application Most pour la gestion de vos inventaires</h1>
           <!-- <button @click="alertingLoggedInUserInfos"> Click me to dispaly user logged in info  </button> -->
 
     <div class="fonctionnalites">
@@ -55,14 +55,28 @@
       </div>
      
       <div class="fonctionnalite">
-        <h2>Télécharger le modèle CSV</h2>
+        <h2>Modèle CSV pour les articles immobilier</h2>
         <p>Il est obligatoire d'utiliser ce modèle .CSV pour le travail de comptage. Vous allez être redirigé vers un drive où vous devez télécharger le modèle du fichier</p>
          <div>
-          <a href="https://drive.google.com/file/d/18P-g8toe03ms_mZKSr9luRP6188p8E0y/view?usp=sharing">
-    <button >Télécharger CSV</button>
+          <a href="https://drive.google.com/file/d/1DCzPJhSj-EIH6tHUC6ljyVsNpHwad-UW/view?usp=sharing">
+    <button class="CasualButton BlueButton" >Télécharger CSV</button>
           </a>
   </div>
       </div>
+
+
+      <div class="fonctionnalite">
+        <h2>Modèle CSV pour les articles ordinaires</h2>
+        <p>Il est obligatoire d'utiliser ce modèle .CSV pour le travail de comptage. Vous allez être redirigé vers un drive où vous devez télécharger le modèle du fichier</p>
+         <div>
+          <a href="https://drive.google.com/file/d/1mZkj-FNejCbu3RmCVU5VKthmEmPZjw_m/view?usp=sharing">
+    <button class="CasualButton BeigeButton" >Télécharger CSV</button>
+          </a>
+  </div>
+      </div>
+
+
+
 
 
     </div>
@@ -71,6 +85,47 @@
 </template>
 
 <style scoped>
+
+.BlueButton{
+background: rgb(14, 80, 107);
+}
+.BlueButton:hover{
+background: rgb(29, 110, 142);
+}
+
+.BeigeButton{
+background: #dc4403e4;
+}
+
+.BeigeButton:hover{
+background: #ff4e00;
+
+}
+
+.CasualButton {
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top:10px;
+  padding-left:20px;
+  padding-right:20px;
+
+
+  padding-bottom:10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+
+  font-size: 16px;
+  transition: opacity 0.5s;
+}
+
+
+
+
+
+
+
 
 .hamburger-button {
   position: relative;
@@ -104,7 +159,7 @@
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{

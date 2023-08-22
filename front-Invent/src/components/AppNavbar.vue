@@ -6,8 +6,9 @@
     <a href="/AfterLoginAdminPage">
       <div class="logo-container">
         <div>
-          <img src="../assets/WebsiteLogo.png" alt="Logo" class="logo" />
-          <div class="logo-text">Gestion d'inventaires</div>
+          <img src="../assets/most icon.png" alt="Logo" class="logo" />
+
+          <div class="logo-text"  style="width:150px;padding-right:10px">MOST</div>
         </div>
       </div>
     </a>
@@ -16,7 +17,7 @@
       <ul>
         <li>
           <a href="/PagePrincipale">
-            Home
+            Accueil
             <div class="nav-line"></div>
           </a>
         </li>
@@ -44,7 +45,7 @@
 
         <li v-if="this.UserRole == 'admin_produit'">
           <a href="/PageCreationNvArticles">
-            New Produits
+            Nvx Produits
             <div class="nav-line"></div>
           </a>
         </li>
@@ -71,7 +72,7 @@
 
         <li v-if="this.UserRole == 'admin_immo'">
           <a href="/PageCreationNvArticlesImmobiliers">
-            New Articles Immobiliers
+            Nvx Articles Immobiliers
             <div class="nav-line"></div>
           </a>
         </li>
@@ -80,7 +81,7 @@
 
         <li>
           <a href="/PageListeUsers">
-            Users
+            Utilisateurs
             <div class="nav-line"></div>
           </a>
         </li>
@@ -152,8 +153,11 @@ export default {
 
 
 <style scoped>
+a{
+  text-decoration: none;
+}
 .navbar {
-    background-color: #e74311;
+    background-color: #011627;
 
   /* background-color: #2e3d52; */
   padding-top: 8px;
@@ -169,17 +173,22 @@ export default {
 }
 
 .logo {
-  width: 40px;
+  width: 35px;
   height: 40px;
   margin-right: 10px;
-  filter: invert(100%) brightness(100%); 
 }
 
 .logo-text {
-  font-size: 16px;
+  font-size: 19px;
   color: white;
 }
+.logo-text:hover {
+  font-size: 19.5px;
+    color: #FF4E00;
+    transition: 0.1s ;
 
+
+}
 .navbar-center {
   flex: 1;
   display: flex;
@@ -194,7 +203,7 @@ export default {
 }
 
 .navbar-center li {
-  margin: 0 15px;
+  margin: 0 5px;
 }
 
 .navbar-center a {
@@ -215,7 +224,7 @@ export default {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: #ff8d6a;
+  background-color: #c55330;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }

@@ -29,9 +29,6 @@
     <div class="container">
       <div style="margin-top: 40px">
         
-
-
-
         <!-- Affichage de données -->
         <!-- <div v-if="importedData.length == 0">
           <p>
@@ -50,7 +47,7 @@
           </p>
         </div> -->
 
-        <h3 class="PageTilte" >Créer un nouveau inventaire</h3>
+        <h3 style="margin-top:20px" class="PageTilte" >Créer un nouveau inventaire</h3>
       </div>
 
       <input
@@ -89,6 +86,8 @@
         <h4>Importer de nouveaux articles</h4>
       </div>
 
+
+<div style="display:flex;justify-content:center">
       <table style="margin-bottom: 150px" class="data-table">
         <thead>
           <tr>
@@ -117,6 +116,8 @@
         </tbody>
       </table>
     </div>
+
+    </div>
   </div>
 </template>
 
@@ -139,6 +140,8 @@ export default {
   },
   data() {
     return {
+          isAddingInProgress: false,
+
       importedData: [],
       momentObj: moment(),
       nomNvInventaire: "",
@@ -276,6 +279,7 @@ toggleSidebar() {
       return result;
     },
     async ajouter_Articles_DB() {
+  this.isAddingInProgress = true;
 
       // alert(this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés))
       if(  this.maxInventaires - (this.nombreInventairesArchivés +this.nombreInventairePasEncoreValidés)<=0){
@@ -361,6 +365,8 @@ toggleSidebar() {
         console.error("Error adding article:", error);
       }
       }
+        this.isAddingInProgress = false;
+
     },
     openFileInput() {
       this.$refs.fileInput.click();
@@ -529,7 +535,7 @@ toggleSidebar() {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{
@@ -592,7 +598,7 @@ toggleSidebar() {
 .ImportAjouterButtonContainer {
 }
 .container {
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -621,7 +627,7 @@ toggleSidebar() {
 }
 
 .data-table {
-  width: 100%;
+  width: 85%;
   border-collapse: collapse;
 }
 

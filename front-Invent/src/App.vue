@@ -37,7 +37,7 @@ data() {
       this.startSessionTimer();
     },
     showSessionWarning() {
-      alert("Il y'avait un moment que vous n'avez rien fait");
+      alert("Il y a un moment que vous n'avez rien fait");
       setTimeout(() => {
         this.logout();
       }, 5000); // Log out after 5 seconds
@@ -51,7 +51,7 @@ data() {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -63,6 +63,7 @@ nav {
 }
 
 nav a {
+  
   font-weight: bold;
   color: #2c3e50;
 }

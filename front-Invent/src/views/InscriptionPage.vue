@@ -20,7 +20,7 @@
       
       <div v-else>
         <div class="PackInfo">
-          <h2>{{ selectedpack.nomPackage }}</h2>
+          <h2 style="font-size:29px;margin-bottom:-10px" >{{ selectedpack.nomPackage }}</h2>
           <p>Vous avez choisi le pack {{ selectedpack.nomPackage }}.</p>
         </div>
 
@@ -107,12 +107,13 @@
                   </div>
                   <div class="radio-option">
                     <label>
-                      <input
-                        type="radio"
-                        value="admin_mixte"
-                        v-model="roleAdmin"
-                        required
-                      />
+  <input
+  type="radio"
+  value="admin_mixte"
+  v-model="roleAdmin"
+  required
+  class="custom-radio"
+/>
                       Admin articles mixtes
                     </label>
                   </div>
@@ -255,6 +256,29 @@ export default {
 
 
 <style scoped>
+
+:root {
+  --blue: #1d8645;
+  --white: #ffffff;
+}
+
+
+.custom-radio::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc; /* Default border color */
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+/* Style the custom radio button indicator when checked */
+.custom-radio:checked::before {
+  background-color: red; /* Change color to red when checked */
+  border-color: red; /* Change border color to red when checked */
+}
 @media screen and (max-width: 768px) {
    .form-content {
     padding: 20px;
@@ -304,7 +328,7 @@ export default {
 
  .PageContainer{
     padding-top: 250px;
-    background-color: #ddd;
+    background-color: #f5f7fa;
     height: 800px !important;
 
 
@@ -312,7 +336,6 @@ export default {
   .packs-container {
     flex-direction: column;
     align-items: center;
-        background-color: #ddd;
         
 
   }
@@ -355,7 +378,7 @@ export default {
 
 .pack-container {
   flex: 1;
-  background-color: #f5f7fa;
+  background-color: #f5f7fa92;
   padding: 20px;
   margin-right: 10px;
   border-radius: 5px;
@@ -364,7 +387,7 @@ export default {
 }
 
 .pack-container:hover {
-  background-color: #e74311;
+  background-color: #011627;
   color: #fff;
 }
 
@@ -421,14 +444,15 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ddd;
+  background: #ddddddb4;
   height: 100vh;
 }
 .form-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: white;
+  background:#ffffffb5;
+
   border-radius:20px ;
 }
 
@@ -451,7 +475,7 @@ export default {
 .button {
   width: 100%;
   height: 40px;
-  background-color: #e74311;
+  background-color: #04345c;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -460,7 +484,7 @@ export default {
 }
 
 .button:hover {
-  background-color: #ff8d6a;
+  background-color: #084b82;
 }
 
 .radio-option {

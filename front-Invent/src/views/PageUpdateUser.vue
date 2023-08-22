@@ -403,7 +403,7 @@ export default {
 }
 
 .CustomButton {
-  background-color: #4caf50;
+  background-color: #e1661f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -414,7 +414,7 @@ export default {
 }
 
 .CustomButton:hover {
-  background-color: #45a049;
+  background-color: #ea8043;
 }
 
 .ErrorMessage {

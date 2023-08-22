@@ -73,7 +73,8 @@ a{
   left: 0;
   width: 250px; /* Set the desired width */
   height: 100%;
-  background-color: #ca7f68 !important;
+  background-color: #042f52 !important;
+  color: white !important;
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
   transition:  0.9s ease;
@@ -93,7 +94,7 @@ a{
 
 .sidebar-links a {
   text-decoration: none;
-  color: #333;
+  color: white;
   font-weight: bold;
   transition: color 0.3s ease;
 }
@@ -108,13 +109,14 @@ a{
   background-color: transparent;
   border: none;
   cursor: pointer;
+    background: white !important;
+
 }
 
 .hamburger-button span {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
   margin: 4px auto;
   transition: background-color 0.3s ease;
 }

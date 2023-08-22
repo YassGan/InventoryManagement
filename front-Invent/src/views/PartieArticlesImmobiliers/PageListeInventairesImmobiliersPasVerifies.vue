@@ -34,7 +34,7 @@
 
 
 
-    <div style="margin-top: 60px">
+    <div style="margin-top: 60px;margin-bottom:-80px">
       <h3>
         Liste de vos inventaires immobiliers qui ne sont pas encore validés
       </h3>

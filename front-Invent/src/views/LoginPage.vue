@@ -8,12 +8,26 @@
         <img src="../assets/loginImage.jpg" alt="Login Image" class="login-image" />
       </div>
       <div class="form-container">
-        <div class="title-container">
+      
+        <!-- <div class="title-container">
           <h1 class="PageTitle">Gestion d'inventaires</h1>
-        </div>
+        </div> -->
+
+
+      <div style="margin-bottom:-40px;margin-top:70px">
+        <img src="../assets/most icon c.png" alt="Login Image" style="width:35px" class="login-image" />
+
+      </div>
+
+      <div style="margin-bottom:80px;margin-top:50px">
+        <img src="../assets/most font c.png" alt="Login Image" style="width:110px"  />
+
+      </div>
+
+
         <div class="form-wrapper">
           <form @submit.prevent="login" class="form">
-            <h2>Login Page</h2>
+            <!-- <h2>Login Page</h2> -->
             <div class="input-wrapper">
               <input
                 type="email"
@@ -30,7 +44,7 @@
                 class="form-control"
               />
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Se connecter</button>
             <div class="InscriptionLink">
               <a href="/InscriptionPage">S'inscrire ?</a>
             </div>
@@ -266,16 +280,17 @@ box-shadow: -4px -1px 32px -5px rgba(0,0,0,0.11);
 .btn {
   width: 100%;
   height: 40px;
-  background-color: #e74311;
+  background-color: #011627;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #ff8d6a;
+  background-color: #084b82;
 }
 
 .error-message {
@@ -296,7 +311,7 @@ box-shadow: -4px -1px 32px -5px rgba(0,0,0,0.11);
 
 
 .InscriptionLink a {
-  color: #e74311;
+  color: #FF4e00;
   text-decoration: none;
 }
 

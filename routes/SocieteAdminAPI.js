@@ -55,7 +55,7 @@ router.post('/addSocieteAdmin', async (req, res) => {
         from: 'yassinegana.yt@gmail.com',
         to: email,
         subject: 'Email Verification',
-        text: `Please click on the following link to verify your email: https://inventory.4help.tn/api/SocieteAdminAPI/verify/${verificationToken}`,
+        text: `Please click on the following link to verify your email: http://localhost:8000api/SocieteAdminAPI/verify/${verificationToken}`,
       };
   
       console.log("Sending verification email...");
