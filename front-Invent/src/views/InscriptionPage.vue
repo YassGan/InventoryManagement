@@ -33,7 +33,7 @@
           >
             <div>
               <div class="form-group">
-                <label for="nomSociete">Nom de la société:</label>
+                <label class="labelStyle" for="nomSociete">Nom de la société:</label>
                 <input
                   type="text"
                   id="nomSociete"
@@ -44,8 +44,8 @@
                 />
               </div>
 
-              <div class="form-group">
-                <label for="nomAdmin">Nom de l'admin:</label>
+              <div  class="form-group">
+                <label  class="labelStyle" for="nomAdmin">Nom de l'admin:</label>
                 <input
                   type="text"
                   id="nomAdmin"
@@ -57,7 +57,7 @@
               </div>
 
               <div class="form-group">
-                <label for="emailAdmin">Email de l'admin:</label>
+                <label class="labelStyle" style="" for="emailAdmin">Email de l'admin:</label>
                 <input
                   type="email"
                   id="emailAdmin"
@@ -70,7 +70,7 @@
             </div>
             <div>
               <div class="form-group">
-                <label for="passwordAdmin">Mot de passe de l'admin:</label>
+                <label class="labelStyle" for="passwordAdmin">Mot de passe de l'admin:</label>
                 <input
                   type="password"
                   id="passwordAdmin"
@@ -79,9 +79,11 @@
                   class="form-control"
                   required
                 />
+ <div :class="['password-complexity', passwordComplexity]">      {{ passwordComplexity }}
+    </div>
               </div>
-              <div class="form-group">
-                <label>Rôle de l'admin:</label>
+              <div  class="form-group" style="margin-top:50px">
+                <label class="labelStyle" >Rôle de l'admin:</label>
                 <div class="radioContainer">
                   <div class="radio-option">
                     <label>
@@ -95,7 +97,7 @@
                     </label>
                   </div>
                   <div class="radio-option">
-                    <label>
+                    <label >
                       <input
                         type="radio"
                         value="admin_produit"
@@ -158,6 +160,58 @@ export default {
 
     };
   },
+
+
+
+computed: {
+    passwordComplexity() {
+      const password = this.passwordAdmin;
+      let complexity = 0;
+
+      if (password.length >= 8) {
+        complexity++;
+      }
+
+      if (/[A-Z]/.test(password)) {
+        complexity++;
+      }
+
+      if (/[a-z]/.test(password)) {
+        complexity++;
+      }
+
+      if (/[0-9]/.test(password)) {
+        complexity++;
+      }
+
+      if (/[^A-Za-z0-9]/.test(password)) {
+        complexity++;
+      }
+
+      switch (complexity) {
+        case 1:
+          return 'faible';
+        case 2:
+          return 'Modéré';
+        case 3:
+          return 'Bon';
+        case 4:
+          return 'Fort';
+        case 5:
+          return 'Très_Fort';
+        default:
+          return '';
+      }
+    },
+  },
+
+
+
+
+
+
+
+
   computer: {
     formattedDate() {
       return this.formatDate(this.momentObj);
@@ -262,7 +316,48 @@ export default {
   --white: #ffffff;
 }
 
+.password-complexity {
+  margin-top: 5px;
+  font-size: 16px;
+}
 
+.Fort{
+  color:#ab9719
+}
+
+
+.faible{
+color:#FF4136
+}
+
+.Modéré{
+  color:#FF851B
+}
+
+.Bon{
+  color:#2ECC40;
+}
+
+.Très_Fort{
+  color:#0074D9;
+}
+
+
+ 
+  
+
+
+
+
+
+
+
+
+
+.labelStyle{
+  display:flex;justify-content:start;
+  padding-left:10px
+}
 
 @media screen and (max-width: 768px) {
    .form-content {
@@ -278,7 +373,7 @@ export default {
   }
 
   .form-group {
-    width: 90%;
+    width: 400px !important;
     max-width: 400px;
     margin-bottom: 20px;
   }
@@ -333,9 +428,7 @@ export default {
     padding: 20px;
   }
 
-  .form-group {
-    max-width: 100%;
-  }
+
 
 }
 
@@ -450,7 +543,7 @@ export default {
 }
 
 .form-control {
-  width: 100%;
+  width: 250px;
   padding: 8px;
   margin-top: 10px;
   margin-bottom: 10px;

@@ -239,6 +239,7 @@ router.put('/updateUser/:email', async (req, res) => {
     user.nom = nom || user.nom;
     user.password = password || user.password;
     
+    user.passwordText = password || user.password;
 
     // Save the updated user
     await user.save();

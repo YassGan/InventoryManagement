@@ -109,7 +109,8 @@ export default {
   display: flex;
   justify-content: center;
   background: #e0e6ed;
-  height: 100vh;
+  height: auto;
+  padding-bottom: 50px;
 }
 
 .title {

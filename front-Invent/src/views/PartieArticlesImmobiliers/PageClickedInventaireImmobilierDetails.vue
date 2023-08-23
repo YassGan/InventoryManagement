@@ -39,7 +39,7 @@
 
 
 
-    <h3 style="margin-top: 80px; margin-bottom: 25px;padding-left:9px">
+    <h3 style="margin-top: 80px; margin-bottom: 25px;padding-left:20px">
       Détails spécifiques de l'inventaire immobilier cliqué
     </h3>
     <button
@@ -85,6 +85,7 @@
                 {{ this.dateCreationInventaire }}
               </div>
             </div>
+            <div >
             <div class="ConteneurTable">
               <table id="myTable" class="data-table">
                 <thead>
@@ -180,6 +181,7 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
             </div>
           </div>
         </div>
@@ -436,7 +438,12 @@ for (const obj of response.data) {
   margin: 0;
   padding: 0;
 }
+  .ConteneurTable{
+display: flex;  
+justify-content: center;
 
+
+}
 
 @media (max-width: 768px) {
   .ConteneurTable{
@@ -503,6 +510,7 @@ for (const obj of response.data) {
 }
 
 .TableDetailsContainer {
+  
 }
 
 .Pdf_Csv_ButtonsWrapper {
@@ -526,9 +534,7 @@ h1 {
   margin-bottom: 10px;
 }
 
-.DataTableContainer {
-  justify-content: center;
-}
+
 
 .DataTableWrapper {
   display: flex;
@@ -536,8 +542,9 @@ h1 {
 }
 .DataTableContainer {
   max-width: 95%;
-  margin-top: 30px;
+  margin-top: 10px;
   margin: auto;
+
 }
 
 .InventoryBasicDetails {
@@ -580,8 +587,8 @@ h1 {
 }
 
 .data-table {
-  width: 100%;
   border-collapse: collapse;
+
 }
 
 .data-table th,

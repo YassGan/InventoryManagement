@@ -156,7 +156,9 @@ export default {
         const idSociete = User_loggedin_info_Object.idSociete;
 
         const response = await HTTP.get(`UtilisateursAPI/getAllUsersBySocieteId/${idSociete}`);
-        this.users = response.data;
+
+            this.users = response.data.filter(user => !user.email.includes('test_User_'));
+
         console.log(this.users)
       } catch (error) {
         console.error(error);
@@ -166,24 +168,28 @@ export default {
       console.log("Editing user:", email);
       router.push("PageUpdateUser/"+email);
     },
+   
     async deleteUser(email) {
-      console.log("Deleting user:", email);
-          try {
-        const response = await HTTP.delete(
-          `UtilisateursAPI/deleteUser/${email}`
-        );
-        console.log(response.data.message);
-        const deletedIndex = this.users.findIndex(
-          (item) => item.email === email
-        );
+      const shouldDelete = window.confirm("Etes-vous sûr de vouloir effacer l' agent "+email+" ?");
+      if (shouldDelete) {
+        try {
+          const response = await HTTP.delete(`UtilisateursAPI/deleteUser/${email}`);
+          console.log(response.data.message);
+          const deletedIndex = this.users.findIndex((item) => item.email === email);
 
-        if (deletedIndex !== -1) {
-          this.users.splice(deletedIndex, 1);
+          if (deletedIndex !== -1) {
+            this.users.splice(deletedIndex, 1);
+          }
+        } catch (error) {
+          console.error("Error deleting user:", error);
         }
-      } catch (error) {
-        console.error("Error deleting about option:", error);
       }
     },
+
+
+
+
+
   },
 };
 </script>

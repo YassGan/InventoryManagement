@@ -209,7 +209,7 @@ extractStringAfterAdminPrefix(fullString) {
       this.usersSocieteNumber = societeAllUsers.length;
 
       this.maxAgentdeComptage =
-        this.User_loggedin_societe_package_info.maxUsers;
+        this.User_loggedin_societe_package_info.maxUsers+1;
     },
 
     async registerUser() {

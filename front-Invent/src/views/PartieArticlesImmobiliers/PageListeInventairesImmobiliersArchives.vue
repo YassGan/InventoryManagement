@@ -266,7 +266,7 @@ div.style-pagination {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: ;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{
