@@ -35,7 +35,7 @@ router.post('/add_Societe_et_Admin', async (req, res) => {
     // Check if an admin with the given email already exists
     const existingAdmin = await SocieteAdmin.findOne({ email });
     if (existingAdmin) {
-      return res.status(400).json({ error: 'Admin with the given email already exists' });
+      return res.status(400).json({ error: "L'email introduit est déjà existant " });
     }
 
     const societe = new Societe({

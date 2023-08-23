@@ -47,11 +47,11 @@
     </div>
 
       <!-- Button to navigate to create new user page -->
-      <div style="margin-bottom:40px" class="CreateButtonContainer">
+      <div style="margin-bottom:40px;margin-left:20px" class="CreateButtonContainer">
         <router-link to="/PageCreationNvUtilisateur" class="CreateButton">Créer un nouveau agent</router-link>
       </div>
 
-<div style=" width:100%;padding-left:150px">
+<div style=" width:100%;padding-left:50px;padding-right:50px">
 <div class="TableContainer">
       <!-- Display the list of users in a table -->
 <table class="UserTable">
@@ -242,10 +242,13 @@ export default {
   outline: none;
   width: 200px !important;
 }
+
+
 @media (max-width: 768px) {
 
+
 .InventoryTableContainer{
-  width: 90%  !important;
+  width: 95%  !important;
 }
 
 
@@ -285,13 +288,13 @@ export default {
     padding: 5px 10px;
     font-size: 12px;
     }
-}
 
 
-@media (max-width: 768px) {
+
 .PageContainer {
 padding-left: 10px;
 padding-right: 10px;
+width: 85% !important;
 
 }
 .UserTable {
@@ -303,6 +306,7 @@ padding-right: 10px;
 .TableContainer {
   overflow-x: auto ;
   width: 100%;
+  margin-left: 20px;
 }
 
 .CustomButton {
@@ -324,6 +328,7 @@ padding-right: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left:4%;
 }
 
 .PageTitle {

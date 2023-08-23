@@ -6,21 +6,35 @@
       <div class="logo-container">
         <div>
           <img src="../assets/WebsiteLogo.png" alt="Logo" class="logo" />
-          <div class="logo-text">Gestion d'inventaires</div>
+                    <div style="font-size:27px;margin-left:-10px" class="logo-text">Most</div>
+
+          <!-- <div class="logo-text">Gestion d'inventaires</div> -->
         </div>
       </div>
     </a>
 
 
     <ul  class="sidebar-links">
-      <li v-for="link in mobileLinks" :key="link.path" >
+      <li style="display:flex;justify-content:start;padding-left:20px" v-for="link in mobileLinks" :key="link.path" >
 <router-link :to="link.path" v-if="link.userRole ===UserRole">{{ link.label }}</router-link>
       </li>
     </ul>
+
+
+     <div style="margin-top:180px;margin-left:6px;margin-bottom:50px" class="">
+      <button style="background:transparent;border:none" class="logout-button " @click="logout">
+        <img class="logo" style="width:40px" src="../assets/exit.png"  />
+                <div class="" style="font-size:18px;color:white;margin-left:-17px">Logout</div>
+
+      </button>
+    </div>
+
+
   </div>
 </template>
 
 <script>
+import router from "@/router"
 export default {
   data() {
     return {
@@ -37,7 +51,7 @@ export default {
     { userRole: 'admin_immo', path: '/PageListeInventairesImmobiliersPasVerifies', label: 'Inventaires Immobiliers Importés' },
 
   { userRole: 'admin_produit', path: '/PageCreationNvArticles', label: 'Créer Inventaire' },
-    { userRole: 'admin_immo', path: '/PageCreationNvArticlesImmobiliers', label: 'Articles Immobiliers' },
+    { userRole: 'admin_immo', path: '/PageCreationNvArticlesImmobiliers', label: 'Nvx Articles Immobiliers' },
 
   { userRole: 'admin_produit', path: '/PageListeUsers', label: 'Utilisateurs ' },
 
@@ -59,6 +73,22 @@ export default {
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
+        logout() {
+
+          localStorage.removeItem('token');
+          localStorage.clear(); 
+
+
+
+
+    if (this.$route.path !== '/loginPage') {
+      router.push('/loginPage');}
+
+
+
+
+
+},
   },
 };
 </script>
@@ -84,6 +114,8 @@ a{
   list-style: none;
   padding: 10px 0;
   height: 200px;
+  margin-top: 45px;
+  margin-bottom: -45px;
 }
 
 .sidebar-links li {

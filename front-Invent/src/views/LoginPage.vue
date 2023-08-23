@@ -162,10 +162,13 @@ export default {
 
 
 @media screen and (max-width: 900px) {
+  .AppInvContainer{
+  }
   .AppInv {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    
   }
 
   .image-container {
@@ -176,6 +179,8 @@ export default {
     width: 80% !important;
     padding: 20px ;
     height: auto;
+          overflow-y:auto !important ;
+
     
   }
 

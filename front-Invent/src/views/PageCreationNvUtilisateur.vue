@@ -37,7 +37,7 @@
 
 
     <div class="PageContainer">
-      <h3 style="margin-top:55px" class="PageTitle">Page de création de nouveaux utilisateurs</h3>
+      <h3 style="margin-top:15px" class="PageTitle">Page de création de nouveaux utilisateurs</h3>
   
       <p style="margin-top: 20px; margin-bottom: 50px">
         Introduire les données du nouveau utilisateur
@@ -45,7 +45,7 @@
       <div class="FormWrapper">
         <div class="FormContainer">
           <form @submit.prevent="registerUser" class="Form">
-            <div class="FormRow">
+            <div style="margin-top:-40px" class="FormRow">
               <label class="LabelContainer" for="nomPrenom">Nom et Prénom:</label>
               
               <input style="  flex: 1;
@@ -68,7 +68,7 @@
               <input type="password" id="confirmPassword" v-model="confirmPassword" required />
             </div>
 
-            <div class="ButtonContainer">
+            <div style="margin-top:-25px" class="ButtonContainer">
               <button class="CustomButton" type="submit">Ajouter</button>
             </div>
             <div v-if="errorMessage" class="ErrorMessage">
@@ -312,7 +312,7 @@ extractStringAfterAdminPrefix(fullString) {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 
@@ -325,7 +325,7 @@ h3{
 
 
   .FormContainer {
-    width: 100%;
+    width: 80% !important;
     padding: 10px;
   }
 

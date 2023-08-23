@@ -827,14 +827,14 @@ toggleSidebar() {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 
 
 @media (max-width: 768px) {
   .container {
-    padding: 10px; 
+    width:90% !important;
   }
 
   .CasualButton {

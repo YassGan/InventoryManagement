@@ -115,6 +115,8 @@ export default {
             clearTimeout(sessionTimer);
 
           localStorage.removeItem('token');
+          localStorage.clear(); 
+
 
 
 

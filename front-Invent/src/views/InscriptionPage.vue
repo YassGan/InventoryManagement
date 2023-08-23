@@ -263,22 +263,7 @@ export default {
 }
 
 
-.custom-radio::before {
-  content: "";
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ccc; /* Default border color */
-  background-color: white;
-  border-radius: 50%;
-  margin-right: 5px;
-}
 
-/* Style the custom radio button indicator when checked */
-.custom-radio:checked::before {
-  background-color: red; /* Change color to red when checked */
-  border-color: red; /* Change border color to red when checked */
-}
 @media screen and (max-width: 768px) {
    .form-content {
     padding: 20px;
@@ -299,7 +284,7 @@ export default {
   }
 
   .form-control {
-    width: 90%;
+    width: 80%  !important;
     height: 40px;
     padding: 8px;
     border: 1px solid #ddd;
@@ -322,14 +307,16 @@ export default {
     width: 100%;
   }
  .PackInfo{
-  margin-top: 300px !important;
+  margin-top: 50px !important;
+    margin-bottom: 50px !important;
+
  }
 
 
  .PageContainer{
-    padding-top: 250px;
     background-color: #f5f7fa;
-    height: 800px !important;
+    height: auto !important;
+    width: auto !important
 
 
   }

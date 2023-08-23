@@ -34,7 +34,7 @@
 
 
 
-    <div style="margin-top: 60px;margin-bottom:-80px">
+    <div style="margin-top: 60px;margin-bottom:-80px;padding-left:10px;padding-right:10px">
       <h3>
         Liste de vos inventaires immobiliers qui ne sont pas encore validés
       </h3>
@@ -65,7 +65,7 @@
               <tr
                 @click="InventoryDetailPage(inventory.lienArticleInventaire)"
                 class="inventory-item"
-                v-for="(inventory,index) in filteredInventories"
+                v-for="(inventory,index) in paginatedInventories"
                 :key="inventory._id"
               >
                 <td>{{ index+1 }}</td>
@@ -74,6 +74,26 @@
               </tr>
             </tbody>
           </table>
+          
+        <div style="margin-top:30px">
+          <div class="pagination-buttons">
+            <button
+              :disabled="currentPage === 1"
+              @click="prevPage"
+              class="pagination-button"
+            >
+              Previous
+            </button>
+            <span class="pagination-page-info">{{ currentPage }} / {{ pageCount }}</span>
+            <button
+              :disabled="currentPage === pageCount"
+              @click="nextPage"
+              class="pagination-button"
+            >
+              Next
+            </button>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -101,6 +121,8 @@ export default {
       Inventories: [],
       isLoading: false,
       searchTerm: "",
+           pageSize: 1,
+      currentPage: 1,
     };
   },
   created() {
@@ -114,6 +136,20 @@ export default {
   },
 
   methods: {
+    
+      prevPage() {
+    if (this.currentPage > 1) {
+      this.pageChanged(this.currentPage - 1);
+    }
+  },
+
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.pageChanged(this.currentPage + 1);
+    }
+  },
+
+  
         handleResize() {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth >= this.mobileBreakpoint) {
@@ -125,7 +161,9 @@ export default {
 
       }
     },
-
+    pageChanged(newPage) {
+      this.currentPage = newPage;
+    },
     toggleSidebar() {
         this.isOpen = !this.isOpen;
 
@@ -173,6 +211,14 @@ export default {
   },
 
   computed: {
+        paginatedInventories() {
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      const endIndex = startIndex + this.pageSize;
+      return this.filteredInventories.slice(startIndex, endIndex);
+    },
+        pageCount() {
+      return Math.ceil(this.filteredInventories.length / this.pageSize);
+    },
     filteredInventories() {
       if (!this.searchTerm) {
         return this.Inventories; 
@@ -190,6 +236,30 @@ export default {
 </script>
 
 <style scoped>
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: #e56e42;
+  color: #fff;
+}
+
+.pagination-page-info {
+  margin: 0 10px;
+}
 .InputSearch {
   padding: 10px;
   border: 1px solid #ccc;
@@ -276,7 +346,7 @@ export default {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: black;
   margin: 4px auto;
 }
 .navbarContainer{

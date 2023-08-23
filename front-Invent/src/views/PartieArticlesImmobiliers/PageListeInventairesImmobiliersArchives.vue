@@ -1,9 +1,5 @@
 <template>
   <div style="height: 100vh; background: #f5f7fa">
-
-
-
-
     <button v-if="this.showHamburger" class="hamburger-button" @click="toggleSidebar">
       <span></span>
       <span></span>
@@ -11,38 +7,14 @@
     </button>
 
     <div class="navbarContainer" v-if="windowWidth >= mobileBreakpoint">
-      <!-- Your existing navigation bar code here -->
-      <AppNavbar> </AppNavbar>
-
+      <AppNavbar></AppNavbar>
     </div>
 
-
-
-    <div   class="mobile-sidebar"
-  :class="{open: isOpen, closed: !isOpen}" v-else>
-      <!-- Hamburger button -->
-
-      <!-- Mobile sidebar -->
+    <div class="mobile-sidebar" :class="{ open: isOpen, closed: !isOpen }" v-else>
       <MobileSidebar v-show="isSidebarOpen" />
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div style="margin-top: 60px;margin-bottom:-80px">
+    <div style="margin-top: 60px; margin-bottom: -80px">
       <h3>Liste de vos inventaires archivés</h3>
     </div>
 
@@ -71,19 +43,40 @@
               <tr
                 @click="InventoryDetailPage(inventory.lienArticleInventaire)"
                 class="inventory-item"
-                v-for="(inventory, index) in filteredInventories"
+                v-for="(inventory, index) in paginatedInventories"
                 :key="inventory._id"
               >
-                <td style="">
-                  {{ index+1 }}
-                </td>
-                <td style="">
-                  {{ inventory.nomInventaire }}
-                </td>
+                <td style="">{{ (currentPage - 1) * pageSize + index + 1 }}</td>
+                <td style="">{{ inventory.nomInventaire }}</td>
                 <td>{{ inventory.DateInsertion_DB }}</td>
               </tr>
             </tbody>
           </table>
+
+
+
+        <div style="margin-top:30px">
+          <div class="pagination-buttons">
+            <button
+              :disabled="currentPage === 1"
+              @click="prevPage"
+              class="pagination-button"
+            >
+              Previous
+            </button>
+            <span class="pagination-page-info">{{ currentPage }} / {{ pageCount }}</span>
+            <button
+              :disabled="currentPage === pageCount"
+              @click="nextPage"
+              class="pagination-button"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+    
+
+
         </div>
       </div>
     </div>
@@ -99,65 +92,68 @@ import MobileSidebar from "../../components/SideBarMobile.vue";
 export default {
   components: {
     AppNavbar,
-                    MobileSidebar,
-
+    MobileSidebar,
   },
-
   data() {
     return {
-                 mobileBreakpoint: 768,
+      mobileBreakpoint: 768,
       windowWidth: window.innerWidth,
       isSidebarOpen: false,
       Inventories: [],
       isLoading: false,
       searchTerm: "",
+      pageSize: 8,
+      currentPage: 1,
     };
   },
-   created() {
-    this.handleResize(); 
+  created() {
+    this.handleResize();
   },
   mounted() {
     this.fetchInventories();
     document.title = "Inventaires archivés";
-               window.addEventListener('resize', this.handleResize);
-    this.handleResize(); 
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  methods: {   
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.pageChanged(this.currentPage - 1);
+    }
   },
 
-  methods: {
-        handleResize() {
+  nextPage() {
+    if (this.currentPage < this.pageCount) {
+      this.pageChanged(this.currentPage + 1);
+    }
+  },
+
+
+
+    handleResize() {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth >= this.mobileBreakpoint) {
-        this.isSidebarOpen = false; 
-        this.showHamburger=false;
-      }
-      else{
-                this.showHamburger=true;
-
-      }
-    },
-
-    toggleSidebar() {
-        this.isOpen = !this.isOpen;
-
-  if (this.isSidebarOpen) {
-    this.isSidebarOpen = false;
-
-  } else {
-    this.isSidebarOpen = true; 
-  }
-
-},
-  watch: {
-    windowWidth(newValue) {
-      if (newValue >= this.mobileBreakpoint) {
         this.isSidebarOpen = false;
+        this.showHamburger = false;
+      } else {
+        this.showHamburger = true;
       }
     },
-  },
+    toggleSidebar() {
+      this.isOpen = !this.isOpen;
+      if (this.isSidebarOpen) {
+        this.isSidebarOpen = false;
+      } else {
+        this.isSidebarOpen = true;
+      }
+    },
+    pageChanged(newPage) {
+      this.currentPage = newPage;
+    },
     InventoryDetailPage(id) {
       router.push("/PageClickedInventaireImmobilierDetails/" + id);
     },
-
     async fetchInventories() {
       //getting user logged in info data from the localStorage
       const User_loggedin_info_String =
@@ -184,7 +180,6 @@ export default {
       }
     },
   },
-
   computed: {
     filteredInventories() {
       if (!this.searchTerm) {
@@ -192,19 +187,53 @@ export default {
       } else {
         const searchTermLower = this.searchTerm.toLowerCase();
         return this.Inventories.filter((inventory) => {
-          return inventory.nomInventaire
-            .toLowerCase()
-            .includes(searchTermLower);
+          return inventory.nomInventaire.toLowerCase().includes(searchTermLower);
         });
       }
     },
+    paginatedInventories() {
+      const startIndex = (this.currentPage - 1) * this.pageSize;
+      const endIndex = startIndex + this.pageSize;
+      return this.filteredInventories.slice(startIndex, endIndex);
+    },
+    pageCount() {
+      return Math.ceil(this.filteredInventories.length / this.pageSize);
+    },
+    
   },
 };
 </script>
 
+
 <style scoped>
 
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.pagination-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination-button:hover {
+  background-color: #e56e42;
+  color: #fff;
+}
+
+.pagination-page-info {
+  margin: 0 10px;
+}
+div.style-pagination {
+  background: red;
+}
 .hamburger-button {
   position: relative;
   z-index: 100;
@@ -237,7 +266,7 @@ export default {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: ;
   margin: 4px auto;
 }
 .navbarContainer{
